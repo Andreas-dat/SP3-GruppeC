@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+object service
+object media
+object user
+object profiles
+object movie
+object series
+object seasons
+object episodes
+object login
+object child
+object info
+object categories
+object plantToWatch
+object hasWatched
+
+service -> media
+service -> user
+user -> profiles
+user --> login
+profiles -> child
+profiles --> plantToWatch
+profiles --> hasWatched
+
+media -> categories
+media --> movie
+media --> series
+media -> info
+series --> seasons
+seasons --> episodes
+
+
+@enduml
