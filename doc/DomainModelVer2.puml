@@ -4,30 +4,30 @@
 object service
 object media
 object user
-object profiles
+object profile
 object movie
 object series
 object season
 object episodes
 object login
-object child
+'object child
 object info
-object categories
+object category
 object plantToWatch
 object hasWatched
 
 service *-- "1..*" media
 service *-- "1..*" user
-user *-- profiles
+user *-- "1..6" profile
 user *-- "1" login
-profiles *-- child
-profiles o-- plantToWatch
-profiles o-- hasWatched
+'profiles *-- child
+profile *-- "*" plantToWatch
+profile *-- "*" hasWatched
 
-media --> categories
+info o-- "1..*" category
 media <|-- movie
 media <|-- series
-media --> info
+media *-- info
 series *-- "1..*" season
 season *-- "1..*" episodes
 
