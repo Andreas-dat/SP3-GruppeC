@@ -23,7 +23,8 @@ user is prompted to either log in or create new user
 
 **rainy day**<p>
 user types invalid choice, is prompted again<p>
-data is unable to be loaded/doesn't exist, user is informed
+data is unable to be loaded/doesn't exist, user is informed<p>
+
 
 ## UC: CREATE PROFILE
 user is prompted to enter a profile name and whether the profile is a child profile or not
@@ -61,12 +62,6 @@ invoke UC: PLAY MEDIA<p>
 invoke UC: ADD TO LIST<p>
 invoke UC: REMOVE FROM LIST<p>
 
-## UC: ADD TO LIST
-user can add media to a list
-
-**rainy day**<p>
-item is already on list
-user wants to remove media from hasWatched
 
 ## UC: PLAY MEDIA
 media plays<p>
@@ -75,17 +70,23 @@ media is added to profiles hasWatched list
 **rainy day**<p>
 user wants to stop playback
 
-## UC: REMOVE FROM LIST
+## UC: EDIT MEDIA LIST
+
+### ADD TO LIST
+user can add media to a list
+
+**rainy day**<p>
+item is already on list
+user wants to remove media from hasWatched
+
+### REMOVE FROM LIST
 user can remove media from list, only if it is already added
 
-## UC: SAVE USER INFORMATION
+## UC: LOGOUT
 saves user password, username, and lists
 
 **rainy day**
 file does not exist, create new file
-
-## UC: EXIT PROGRAM
-invokes UC: SAVE USER INFORMATION
 
 
 -----

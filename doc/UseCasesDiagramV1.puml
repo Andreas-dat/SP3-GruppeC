@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+actor user as U
+
+usecase login as UC0
+usecase registerUser as UC1
+usecase startService as UC2
+usecase createProfile as UC3
+usecase chooseProfile as UC4
+usecase editProfile as UC5
+usecase deleteProfile as UC6
+usecase mainMenu as UC7
+usecase findMediaByCharacteristics as UC8
+usecase displayMediaList as UC9
+usecase displayMediaInfo as UC10
+'usecase addToList as UC11
+usecase playMedia as UC12
+'usecase removeFromList as UC13
+usecase editMediaList as UC11
+usecase logout as UC15
+
+U -> UC2
+UC2 --> UC0
+UC0 <--> UC1
+UC0 --> UC4
+
+UC3 <--> UC4
+UC5 <--> UC4
+UC6 <--> UC4
+UC4 <--> UC7
+
+UC7 <--> UC8
+UC7 <--> UC9
+UC7 --> UC15
+UC8 <--> UC9
+
+UC9 <--> UC10
+UC10 --> UC7
+UC10 <--> UC11
+UC10 <--> UC12
+
+
+UC15 --> UC0
+
+
+@enduml
