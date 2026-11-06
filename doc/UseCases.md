@@ -53,6 +53,14 @@ user types keyword
 user types invalid keyword, try again
 user search does not exist
 
+## UC: PROFILE LISTS
+filter media by users list (Has watched/Plan to watch)
+
+**rainy day** <p>
+user dost have a list, a msg is displayed telling them they don't have a list
+
+
+
 ## UC: DISPLAY MEDIA LISTS
 displays list of media (all media, category, year, has watched, plan to watch)
 

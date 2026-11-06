@@ -18,6 +18,7 @@ usecase playMedia as UC12
 'usecase removeFromList as UC13
 usecase editMediaList as UC11
 usecase logout as UC15
+usecase hasWatchedplantowatch as UC16
 
 U -> UC2
 UC2 --> UC0
@@ -28,6 +29,8 @@ UC3 <--> UC4
 UC5 <--> UC4
 UC6 <--> UC4
 UC4 <--> UC7
+UC7 <--> UC16
+UC16 <--> UC9
 
 UC7 <--> UC8
 UC7 <--> UC9
