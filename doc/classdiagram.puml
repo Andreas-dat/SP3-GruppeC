@@ -1,0 +1,117 @@
+@startuml
+
+
+class Main
+class Service{
+-String name
+-User user
+-ArrayList<Media> media
++void startService()
++void login()
++void registerUser()
+-void createUser(String name, String username, String password, String email, String dateOfBirth)
+}
+
+abstract class Media {
+-ArrayList<Category> categories
+-String title
+-double rating
+-int releaseYear
+-int ID
+-{static} int idCount
+}
+
+class Movie {
+}
+
+class Series {
+-int endOfRelease
+-ArrayList<Season> seasons
+}
+
+interface Watchable {
+-void play()
+}
+
+class Season {
+-ArrayList<Episode> episodes
+}
+class Episode {
+
+}
+class User {
+-ArrayList<Profile> profiles
+-String name
+-String username
+-String password
+-String email
+-String dateOfBirth
+-void createProfile(nickName, ArrayList<Media> planToWatch, ArrayList<Media> hasWatched)
+}
+class Profile {
+-ArrayList<Media> planToWatch
+-ArrayList<Media> hasWatched
+-String nickName
+}
+
+enum Category {
+ACTION
+ADVENTURE
+ANIMATION
+BIOGRAPHY
+COMEDY
+CRIME
+DOCUMENTARY
+DRAMA
+FAMILY
+FANTASY
+FILM-NOIR
+HISTORY
+HORROR
+MUSIC
+MUSICAL
+MYSTERY
+ROMANCE
+SCI-FI
+SPORT
+TALK-SHOW
+THRILLER
+WAR
+WESTERN
+}
+
+package "util" {
+class TextUI {
+-Scanner scan
+{static} +void displayList(ArrayList<String> list, String msg)
+{static} +int promptNumeric(String msg)
+{static} +boolean promptBinary(String msg)
+{static} +void displayMessage(String msg)
+{static}
+}
+
+class FileIO {
+{static} +ArrayList<String> readData(String path)
+{static} +void saveData(ArrayList<String> data, String path, String header)
+}
+}
+
+Main *-- Service
+Service *-- Media
+Media *-- Category
+Media <|-- Movie
+Media <|-- Series
+Series *-- Season
+Season *-- Episode
+
+'Service *-- TextUI
+'Service *-- FileIO
+
+Service *-- User
+User *-- Profile
+
+Watchable <|.. Movie
+Watchable <|.. Episode
+
+
+@enduml
