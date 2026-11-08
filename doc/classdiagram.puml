@@ -9,6 +9,7 @@ class Service{
 +void startService()
 +void login()
 +void registerUser()
+
 -void createUser(String name, String username, String password, String email, String dateOfBirth)
 }
 
