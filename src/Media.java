@@ -1,23 +1,17 @@
 import java.util.ArrayList;
 
 public abstract class Media {
-    private final String title;
-    private final int releaseYear;
-    private ArrayList<Category> categories;
-    private final double rating;
-    private final int ID;
-    private static int idCount = 0;
+    private String title;
+    private int releaseYear;
+    private ArrayList<String> genres;
+    private double rating;
+    private int ID;
+    private static int idCount;
 
-    public Media(String title, double rating, int releaseYear) {
+    Media(String title, int releaseYear, ArrayList<String> genres, double rating) {
         this.title = title;
-        this.rating = rating;
         this.releaseYear = releaseYear;
-        this.ID = idCount;
-        idCount++;
-    }
-
-
-    public int getID() {
-        return ID;
+        this.genres = genres;
+        this.rating = rating;
     }
 }
