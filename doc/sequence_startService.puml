@@ -1,0 +1,56 @@
+@startuml
+participant Main
+participant Service
+participant FileIO
+participant Movie
+participant Series
+
+Main -> Service : startService()
+activate Service
+== Load media ==
+Service -> Service : loadMedia()
+
+Service -> FileIO : ArrayList<String> movieData = readData("movies.csv")
+activate FileIO
+return ArrayList<String> movieData
+
+loop for each element in movieData
+    Service -> Movie : Media m = new Movie(title, releaseYear, categories, rating)
+    Service -> Service : media.add(m)
+end
+
+Service -> FileIO : ArrayList<String> seriesData = readData("series.csv")
+activate FileIO
+return ArrayList<String> seriesData
+
+loop for each element in seriesData
+    Service -> Series : Media m = new Series(title, releaseYear, endOfRelease, categories, rating, seasonData)
+    Service -> Service : media.add(m)
+end
+
+== Start menu ==
+Service -> Service : startMenu()
+Service -> TextUI : promptMenuChoice(["Login", "Register user"], "Type a number to choose")
+activate TextUI
+return input
+
+alt input == 1
+    Service -> Service : login()
+    Service -> TextUI : promptText("Type username")
+    activate TextUI
+    return username
+
+    Service -> TextUI : promptText("Type password")
+    activate TextUI
+    return password
+
+    Service -> Service : checkLogin(username, password)
+
+
+    else input == 2
+    Service -> Service : registerUser()
+
+
+end
+
+@enduml
