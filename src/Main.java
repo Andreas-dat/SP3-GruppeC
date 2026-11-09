@@ -1,8 +1,9 @@
 public class Main {
 
-    public void main() {
-        Service s = new Service("Netflix");
-        s.startService();
-    }
+    public static void main(String[] args) {
 
+        Service service = new Service("Netflix");
+        service.startService();
+
+    }
 }

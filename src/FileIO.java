@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class FileIO {
 
-    public String[] readData(String path, int length) {
+    public static String[] readData(String path, int length) {
 
 
         // start metoden med at initialisere et String[] data med det antal pladser som er angivet i parameterlisten (length)
@@ -31,12 +31,14 @@ public class FileIO {
         return data;
     }
 
-    public static ArrayList<String> readData(String path){
+    public static ArrayList<String> readData(String path, boolean skipHeader){
         File file = new File(path);
         ArrayList<String> data = new ArrayList<>(); //"Tess, 0", "Lina, 0", "Signe, 0"
         try {
             Scanner scan = new Scanner(file);
-            scan.nextLine();//skip header
+            if (skipHeader) {
+                scan.nextLine();//skip header
+            }
             while(scan.hasNextLine()){
 
                 String s = scan.nextLine();// "Egon , 20000"
@@ -51,7 +53,7 @@ public class FileIO {
       return data;
     }
 
-    public void saveData(ArrayList<String> data, String path, String header){
+    public static void saveData(ArrayList<String> data, String path, String header){
            File file = new File(path);
            try {
                FileWriter writer = new FileWriter(file);
