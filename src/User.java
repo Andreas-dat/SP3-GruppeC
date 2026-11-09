@@ -59,7 +59,9 @@ public class User {
     }
 
     public void createProfile(String name, boolean isChild) {
+        Profile profile = new Profile(name, isChild);
 
+        profiles.add(profile);
     }
 
 

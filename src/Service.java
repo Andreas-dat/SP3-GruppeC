@@ -63,6 +63,8 @@ public class Service {
         }
 
         createUser(name, username, password, eMail, birthYear);
+
+        userLogin();
     }
 
     private void createUser(String name, String username, String password, String eMail, int birthYear) {
@@ -70,6 +72,10 @@ public class Service {
         //add parameters
         User user = new User(name, username, password, eMail, birthYear);
         users.add(user);
+
+        //standard profiles
+        user.createProfile(name, false);
+        user.createProfile("Kids", true);
     }
 
     private void loadData() {
