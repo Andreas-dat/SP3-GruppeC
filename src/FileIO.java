@@ -69,4 +69,14 @@ public class FileIO {
 
     }
 
+    public static void AppendData(String path, String data){
+        try (FileWriter writer = new FileWriter(path, true)){
+            writer.write(data);
+            writer.close();
+            TextUI.displayMessage("User successfully added!");
+        } catch (IOException e){
+            TextUI.displayMessage("File not found, data cannot be appended");
+        }
+    }
+
 }

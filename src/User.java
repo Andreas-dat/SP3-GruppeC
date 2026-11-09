@@ -64,6 +64,8 @@ public class User {
         profiles.add(profile);
     }
 
-
-
+    @Override
+    public String toString() {
+        return ",";
+    }
 }

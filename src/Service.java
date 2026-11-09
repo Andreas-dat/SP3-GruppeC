@@ -72,6 +72,7 @@ public class Service {
         //add parameters
         User user = new User(name, username, password, eMail, birthYear);
         users.add(user);
+        FileIO.AppendData("data/users/users.csv", user.toString()); //todo: make toString matching data format
 
         //standard profiles
         user.createProfile(name, false);
