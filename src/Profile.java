@@ -8,6 +8,8 @@ public class Profile {
 
     public Profile(String nickname) {
         this.nickname = nickname;
+        this.hasWatched = new ArrayList<>();
+        this.planToWatch = new ArrayList<>();
     }
 
     public void addToList(Media media) {
