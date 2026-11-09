@@ -1,3 +1,4 @@
+import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 
 public class Service {
@@ -53,8 +54,51 @@ public class Service {
         //set currentUser to null
     }
 
+    public void displayMediaInfo(MediaContent media) {
+        //method should display information about the selected movie/series.
+        TextUI.displayMessage("Media information: ");
+        TextUI.displayMessage(media.toString());        //Prints info about media. todo: Must make separate toString() depending on media.
+    }
 
 
+    public void displayMediaOptions(MediaContent media) { //give options: add/remove to watch list, play or
+        ArrayList<String> options = new ArrayList<>();      //Liste som skal bruges til at vise menu
+        ArrayList<MediaContent> currentWatchlist = currentUser.getCurrentProfile().getPlanToWatch();
+        ArrayList<MediaContent> currentHasWatched = currentUser.getCurrentProfile().getHasWatched();
+        boolean isOnWatchlist = currentWatchlist.contains(media);
+        boolean isOnHasWatched = currentHasWatched.contains(media);
 
+        options.add("Play media");
+        if (isOnWatchlist) {     //If-statement checks if current profile contains the movie/series, user options vary on result
+            options.add("Remove from watchlist");
+        } else {
+            options.add("Add to watchlist"); //todo: is watchlist an ok name when presented to the user?
+        }
 
+        if (isOnHasWatched) {       //only adds option if it already is on hasWatched
+            options.add("Remove from watch history");       //todo: beslut om vi denne funktionalitet er nødvendig
+        }
+
+        int choice = TextUI.promptMenuChoice(options, "Choose one: ");  //Shows menu to user, prompts a choice.
+
+        if (choice < 1 || choice > options.size()) {        //Checks if choice is valid.
+            System.out.println("Invalid choice");
+            return;     //todo: exception handling?
+        }
+        switch (choice) {
+            case 1 -> media.play();       //plays media
+            case 2 -> currentUser.getCurrentProfile().toggleWatchList(media);
+            case 3 -> currentUser.getCurrentProfile().removeFromHasWatched(media);
+            default -> TextUI.displayMessage("Invalid choice");
+        }
+    }
+
+    public void displayMediaList() {
+        //Method should show list based on criteria (or no criteria)
+        ArrayList<String> mediaList = new ArrayList<>();
+        //Should be able to choose a media from the list
+        int choice = TextUI.promptMenuChoice(mediaList, "Choose a movie or film");
+        MediaContent mediaChoice = mediaList.get(choice - 1);       //todo: fix data types so we can get correct media to display info about
+        displayMediaInfo(mediaChoice);
+    }
 }

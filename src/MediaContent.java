@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class Media {
+public abstract class MediaContent {
     private final String title;
     private final int releaseYear;
     private ArrayList<Category> categories;
@@ -8,7 +8,7 @@ public abstract class Media {
     private final int ID;
     private static int idCount = 0;
 
-    public Media(String title, double rating, int releaseYear) {
+    public MediaContent(String title, double rating, int releaseYear) {
         this.title = title;
         this.rating = rating;
         this.releaseYear = releaseYear;

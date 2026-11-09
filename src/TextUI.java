@@ -84,7 +84,7 @@ public class TextUI {
         return choices;
     }
 
-    public int promptMenuChoice(ArrayList<String> menu, String msg) {
+    public static int promptMenuChoice(ArrayList<String> menu, String msg) {
         displayList(menu, msg, true);
         int input = promptNumeric("Type a number:");
         return input;

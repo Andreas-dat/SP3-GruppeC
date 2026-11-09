@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Series extends Media implements Watchable{
+public class Series extends MediaContent implements Watchable{
 
     private int endOfRelease;
     ArrayList<ArrayList<Integer>> seasonsAndEpisodes = new ArrayList<ArrayList<Integer>>();  //Nested ArrayLists for info om seasons og episodes

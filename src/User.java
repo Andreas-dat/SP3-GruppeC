@@ -1,3 +1,4 @@
+import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 
 public class User {
@@ -19,7 +20,9 @@ public class User {
         this.birthYear = birthYear;
     }
 
-
+    public Profile getCurrentProfile() {
+        return currentProfile;
+    }
 
     public void changePassword() {
         //this method is resposible for chaning the password of current user. user should be loggedout afterwards.
