@@ -8,7 +8,14 @@ public class Adapter {
         }
         TextUI.displayList(profile,"List of profiles", true);
        int i = TextUI.promptNumeric("Choose profile");
-       return profiles.get(i-1);
+       try {
+           return profiles.get(i - 1);
+       } catch (IndexOutOfBoundsException e) {
+           TextUI.displayMessage(String.valueOf(e));
+           TextUI.displayMessage("invalid input\nShould be between 1-" + profiles.size());
+           chooseProfile(profiles);
+       }
+       return null;
     }
 
     public static void loadProfiles(User user, ArrayList<Media> media) {
