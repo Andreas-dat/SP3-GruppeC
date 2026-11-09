@@ -31,7 +31,7 @@ public class FileIO {
         return data;
     }
 
-    public ArrayList<String> readData(String path){
+    public static ArrayList<String> readData(String path){
         File file = new File(path);
         ArrayList<String> data = new ArrayList<>(); //"Tess, 0", "Lina, 0", "Signe, 0"
         try {

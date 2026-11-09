@@ -11,7 +11,9 @@ public class Adapter {
        return profiles.get(i-1);
     }
 
-    public void loadProfiles(ArrayList<String> profile, User user) {
+    public static void loadProfiles(User user, ArrayList<Media> media) {
+        ArrayList<String> profile = FileIO.readData(user.getName() +".csv");
+
         for (String p : profile) {
             String[] s = p.split(";");
             String name = s[0];
@@ -22,7 +24,7 @@ public class Adapter {
             user.loadProfiles(name, planToWatch, hasWatched);
         }
     }
-    private ArrayList<Media> convertStringToMedia(String list, ArrayList<Media> mediaList) {
+    private static ArrayList<Media> convertStringToMedia(String list, ArrayList<Media> mediaList) {
         ArrayList<Media> media = new ArrayList();
         String[] s = list.split(",");
 

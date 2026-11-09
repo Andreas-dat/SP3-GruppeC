@@ -24,6 +24,7 @@ public class Service {
         System.out.println(currentUser.getName());
         currentUser.addProfile();
         currentUser.setCurrentProfile();
+        Adapter.loadProfiles(currentUser, media);
         //loadData()
         //startMenu()
 
