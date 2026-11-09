@@ -8,8 +8,14 @@ public class Profile {
 
     public Profile(String nickname) {
         this.nickname = nickname;
-        this.hasWatched = new ArrayList<>();
         this.planToWatch = new ArrayList<>();
+        this.hasWatched = new ArrayList<>();
+    }
+
+    public Profile(String nickname, ArrayList<Media> planToWatch, ArrayList<Media> hasWatched) {
+        this.nickname = nickname;
+        this.planToWatch = planToWatch;
+        this.hasWatched = hasWatched;
     }
 
     public void addToList(Media media) {
@@ -18,5 +24,13 @@ public class Profile {
 
     public void removeFromList() {
         //Removes selected media from list.
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

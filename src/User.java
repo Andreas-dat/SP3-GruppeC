@@ -19,8 +19,6 @@ public class User {
         this.birthYear = birthYear;
     }
 
-
-
     public void changePassword() {
         //this method is resposible for chaning the password of current user. user should be loggedout afterwards.
         //Make sure that he password followes rules and that the user enters it twice
@@ -36,7 +34,9 @@ public class User {
         //Change email of current user, make sure it follows rules (valid email etc)
         //User should be logged out afterwards
     }
-    private void loadProfiles() {
+    public void loadProfiles(String nickname, ArrayList<Media> planToWatch, ArrayList<Media> hasWatched) {
+        profiles.add(new Profile(nickname, planToWatch, hasWatched));
+
         //Load users profiles, list etc from corresponding csv documnet (Shuld happend on login)
     }
     private void changeProfile() {
@@ -56,6 +56,11 @@ public class User {
         //Delete current profile. remmeber to delete it from the arraylist of profiles
     }
 
+    public void setCurrentProfile() {
+        currentProfile = Adapter.chooseProfile(profiles);
+        TextUI.displayMessage("you have chosen: " + currentProfile.getNickname());
+    }
+
     public String getName() {
         return name;
     }
@@ -66,5 +71,20 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public Profile getCurrentProfile() {
+        return currentProfile;
+    }
+
+    public ArrayList<Profile> getProfiles() {
+        return profiles;
+    }
+
+    public void addProfile() {
+        profiles.add(new Profile("Andreas"));
+        profiles.add(new Profile("Jesper"));
+        profiles.add(new Profile("Jonatan"));
+        profiles.add(new Profile("Kamilla"));
     }
 }

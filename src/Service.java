@@ -9,6 +9,7 @@ public class Service {
     public Service(String name) {
         this.name = name;
         this.media = new ArrayList<>();
+        this.currentUser = null;
         this.users = new ArrayList<>();
     }
 
@@ -21,11 +22,22 @@ public class Service {
         int maxTries = 3;
         userLogin(maxTries);
         System.out.println(currentUser.getName());
+        currentUser.addProfile();
+        currentUser.setCurrentProfile();
         //loadData()
         //startMenu()
+
+
     }
 
+
+
     public void startMenu() {
+        TextUI.displayMessage("Welcome to !" + name + "\nYou have the following options");
+        TextUI.displayMessage("");
+//1 for login
+        //2 register new user
+
         //prompts user for a number to choose login or register user
         //userLogin() or registerUser()
     }
@@ -80,8 +92,11 @@ public class Service {
         //load movies and series from csv file, create objects and add to media arraylist
     }
 
-    private void loadUsers() {
-        currentUser.getUsername();
+    private void loadUsers() { //test class so far
+        currentUser.addProfile();
+
+
+
         //load users from csv file, create users and add to users arraylist
     }
 
@@ -89,5 +104,7 @@ public class Service {
         //set currentUser to null
     }
 
-
+    public ArrayList<Media> getMedia() {
+        return media;
+    }
 }

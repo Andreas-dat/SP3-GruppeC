@@ -15,4 +15,9 @@ public abstract class Media {
         this.ID = idCount;
         idCount++;
     }
+
+
+    public int getID() {
+        return ID;
+    }
 }
