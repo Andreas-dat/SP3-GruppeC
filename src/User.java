@@ -26,7 +26,7 @@ public class User {
     }
 
     public void changeUsername() {
-        //Change usrename of currentuser. make sure it follows rules and it dosnt exsist
+        //Change usrename of currentuser. make sure it follows rules and it dosnt exsist Should also update the csv with profiles
         //log ouser out aftwewards
     }
 

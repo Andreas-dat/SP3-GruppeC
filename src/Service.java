@@ -75,7 +75,7 @@ public class Service {
         this.currentUser = currentUser;
     }
 
-    private void registerUser() {
+    public void registerUser() {
         //prompts user for name, username... check if valid
         //after successfully registering: startMenu()
     }
