@@ -4,12 +4,19 @@
 class Main
 class Service{
 -String name
--User user
+-User currentUser
 -ArrayList<Media> media
+-ArrayList<User> users
 +void startService()
-+void login()
++User login()
++void logout()
 +void registerUser()
+-void loadData()
+-void loadMedia()
+-void loadUsers()
+
 -void createUser(String name, String username, String password, String email, String dateOfBirth)
+
 }
 
 abstract class Media {
@@ -41,17 +48,38 @@ class Episode {
 }
 class User {
 -ArrayList<Profile> profiles
+-Profile currentProfile
 -String name
 -String username
 -String password
 -String email
 -String dateOfBirth
 -void createProfile(nickName, ArrayList<Media> planToWatch, ArrayList<Media> hasWatched)
++void changePassword()
++void changeUsername()
++void changeMail()
+-void loadProfiles()
++void changeProfile()
++void changeNickName()
++void changeChildStatus()
++void deleteProfile()
 }
+
+
 class Profile {
 -ArrayList<Media> planToWatch
 -ArrayList<Media> hasWatched
 -String nickName
++void addToList()
++void removeFromList()
+
+
+
+}
+
+class Logic {
++ArrayList<String> Search()
+
 }
 
 enum Category {
@@ -103,6 +131,7 @@ Media <|-- Movie
 Media <|-- Series
 Series *-- Season
 Season *-- Episode
+Service *-- Logic
 
 'Service *-- TextUI
 'Service *-- FileIO
@@ -111,7 +140,7 @@ Service *-- User
 User *-- Profile
 
 Watchable <|.. Movie
-Watchable <|.. Episode
+Watchable <|.. Series
 
 
 @enduml
