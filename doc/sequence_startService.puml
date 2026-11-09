@@ -36,9 +36,20 @@ return input
 
 alt input == 1
     Service -> Service : login()
+    Service -> TextUI : promptText("Type username")
+    activate TextUI
+    return username
+
+    Service -> TextUI : promptText("Type password")
+    activate TextUI
+    return password
+
+    Service -> Service : checkLogin(username, password)
+
 
     else input == 2
     Service -> Service : registerUser()
+
 
 end
 
