@@ -33,7 +33,11 @@ public class Service {
         //prompts user for name, username... check if valid
         //after successfully registering: startMenu()
         String name = TextUI.promptText("Please enter a name:");
+
         String eMail = TextUI.promptText("Please enter your Email:"); //check if mail has characters '@' and '.'
+        if (eMail.indexOf('@') == -1 || eMail.indexOf('.') == -1){
+            eMail = TextUI.promptText("Invalid email, try again:");
+        }
 
         int birthYear = 0;
         try {
