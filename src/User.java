@@ -56,6 +56,15 @@ public class User {
         //Delete current profile. remmeber to delete it from the arraylist of profiles
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public String getPassword() {
+        return password;
+    }
 
+    public String getUsername() {
+        return username;
+    }
 }
