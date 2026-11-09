@@ -56,7 +56,7 @@ public class User {
         //Delete current profile. remmeber to delete it from the arraylist of profiles
     }
 
-    public void setCurrentProfile() {
+    public void chooseCurrentProfile() {
         currentProfile = Adapter.chooseProfile(profiles);
         TextUI.displayMessage("you have chosen: " + currentProfile.getNickname());
     }
@@ -82,9 +82,5 @@ public class User {
     }
 
     public void addProfile() {
-        profiles.add(new Profile("Andreas"));
-        profiles.add(new Profile("Jesper"));
-        profiles.add(new Profile("Jonatan"));
-        profiles.add(new Profile("Kamilla"));
     }
 }

@@ -14,7 +14,7 @@ public class Service {
     }
 
     public void startService() {
-        users.add(new User("Andreas", "andreas", "10", "andreas.leth@gmail.com", 1000));
+        users.add(new User("als", "andreas", "10", "andreas.leth@gmail.com", 1000));
         users.add(new User("Simonsen", "200", "30", "andreas.leth@gmail.com", 1000));
         users.add(new User("Andreas", "500", "400", "andreas.leth@gmail.com", 1000));
 
@@ -22,9 +22,10 @@ public class Service {
         int maxTries = 3;
         userLogin(maxTries);
         System.out.println(currentUser.getName());
-        currentUser.addProfile();
-        currentUser.setCurrentProfile();
         Adapter.loadProfiles(currentUser, media);
+        if(!currentUser.getProfiles().isEmpty()) {
+            currentUser.chooseCurrentProfile();
+        }
         //loadData()
         //startMenu()
 

@@ -12,7 +12,7 @@ public class Adapter {
     }
 
     public static void loadProfiles(User user, ArrayList<Media> media) {
-        ArrayList<String> profile = FileIO.readData(user.getName() +".csv");
+        ArrayList<String> profile = FileIO.readData("data/profiles/" + user.getName() + ".csv");
 
         for (String p : profile) {
             String[] s = p.split(";");
@@ -34,7 +34,7 @@ public class Adapter {
             for(Media m: mediaList) {
                 if(m.getID() == i) {
                     media.add(m);
-                    continue;
+                    break;
                 }
             }
 
