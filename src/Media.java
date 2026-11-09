@@ -14,4 +14,14 @@ public abstract class Media {
         this.genres = genres;
         this.rating = rating;
     }
+
+    public Media(String title, double rating, int releaseYear) {
+       this.title = title;
+       this.releaseYear = releaseYear;
+       this.rating = rating;
+    }
+
+    public int getID() {
+        return ID;
+    }
 }

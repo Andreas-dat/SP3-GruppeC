@@ -19,7 +19,7 @@ public class Adapter {
     }
 
     public static void loadProfiles(User user, ArrayList<Media> media) {
-        ArrayList<String> profile = FileIO.readData("data/profiles/" + user.getName() + ".csv");
+        ArrayList<String> profile = FileIO.readData("data/profiles/" + user.getName() + ".csv", true);
 
         for (String p : profile) {
             String[] s = p.split(";");
