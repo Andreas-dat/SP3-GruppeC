@@ -22,9 +22,31 @@ public class Service {
         //userLogin() or registerUser()
     }
 
-    private void userLogin() {
-        //prompts user for username and password and checks if correct and sets current user. otherwise prompt again
+    private void userLogin(int tries) {
+        if (tries >= 0) {
+            String username = TextUI.promptText("Enter username");
+            String password = TextUI.promptText("Enter password");
+            if (checkUser(username, password)) {
+                currentUser = setUser;
+                return;
+            }
+            TextUI.displayMessage("Invalid Username or Password\nyou have " + tries + " tries left");
+            userLogin(tries - 1);
+            //prompts user for username and password and checks if correct and sets current user. otherwise prompt again
+        }
+        TextUI.displayMessage("You have used your maximum amount of tries\nPlease try again later");
     }
+
+    private boolean checkUser(String username, String password) {
+        for(User u: users) {
+            if(u.getUserName.equals(username) && u.getPassword.equals(password)) {
+               return true;
+            }
+        }
+        return false;
+
+    }
+
 
     private void registerUser() {
         //prompts user for name, username... check if valid

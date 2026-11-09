@@ -16,7 +16,6 @@ class Service{
 -void loadUsers()
 
 -void createUser(String name, String username, String password, String email, String dateOfBirth)
-
 }
 
 abstract class Media {
