@@ -9,7 +9,6 @@ public class Series extends Media implements Watchable{
         super(title, rating, releaseYear);
         this.endOfRelease = endOfRelease;
 
-        //Constructor
     }
 
     @Override
