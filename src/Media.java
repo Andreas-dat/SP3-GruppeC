@@ -31,4 +31,8 @@ public abstract class Media {
     public String toString() {
         return title + " " + releaseYear + " " + ID;
     }
+
+    public double getRating() {
+        return rating;
+    }
 }
