@@ -29,7 +29,7 @@ public abstract class Media {
 
     @Override
     public String toString() {
-        return title + " " + releaseYear + " " + ID;
+        return title + " (" + releaseYear + ") " + "Rating: " + rating + ". ID: " + ID;
     }
 
     public double getRating() {

@@ -81,9 +81,9 @@ public class TextUI {
         }
     }
 
-    public ArrayList<String> promptChoice(ArrayList<String> options, int limit, String msg) {
+    public static ArrayList<String> promptChoice(ArrayList<String> options, int limit, String msg) {
+        displayList(options, msg, true);
         ArrayList<String> choices = new ArrayList<>();
-
 
         //kør et while loop, så længe limit ikke er nået
         while (choices.size() < limit) {

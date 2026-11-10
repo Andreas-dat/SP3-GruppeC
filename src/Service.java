@@ -103,19 +103,16 @@ public class Service {
     }
 
     public void searchMenu() {
-        int choice = TextUI.promptMenuChoice(MenuOptions.mainMenu(), "Search menu");
+        ArrayList<Media> filteredList = new ArrayList<>();
 
-        /*
+        int choice = TextUI.promptMenuChoice(MenuOptions.searchMenu(), "Search by:");
         switch (choice) {
-            case 1 -> Search.searchByRating();
-            case 2 -> Search.searchByTitle();
-            case 3 -> Search.searchByYear();
-            case 4 -> Search.searchByCategory();
-
+            case 1 -> filteredList = Search.searchByRating(media);
+            case 2 -> filteredList = Search.searchByTitle(media);
+            case 3 -> filteredList = Search.searchByYear(media);
+            case 4 -> filteredList = Search.searchByCategory(media);
         }
-
-         */
-
+        displayMediaList(filteredList);
     }
 
     private void userLogin(int tries) {

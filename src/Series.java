@@ -20,4 +20,14 @@ public class Series extends Media implements Watchable{
         }
         //Plays the specific episode from the series. Prints message "Now playing..." and saves it to profile's hasWatched
     }
+
+    public int getEndOfRelease() {
+        return endOfRelease;
+    }
+
+    @Override
+    public String toString() {
+        return getTitle() + " (" + getReleaseYear() + "-" + getEndOfRelease() + ") " + "Rating: " + getRating() + ". ID: " + getID();
+    }
+
 }
