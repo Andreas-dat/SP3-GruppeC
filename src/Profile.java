@@ -64,4 +64,26 @@ public class Profile {
     public void removeFromHasWatched(Media media) {
         hasWatched.remove(media);
     }
+
+    private String listToString(ArrayList<Media> media) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < media.size(); i++) {
+            stringBuilder.append(media.get(i).getID());
+            if (i == media.size() - 1) {
+                stringBuilder.append("; ");
+                break;
+            }
+            stringBuilder.append(", ");
+        }
+        return stringBuilder.toString();
+    }
+
+    public String toCSV() {
+        StringBuilder stringBuilder = new StringBuilder(nickname + "; ");
+        stringBuilder.append(listToString(planToWatch));
+        stringBuilder.append(listToString(hasWatched));
+        stringBuilder.append(isChild);
+
+        return stringBuilder.toString();
+    }
 }
