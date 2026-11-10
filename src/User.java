@@ -101,5 +101,9 @@ public class User {
     public void setCurrentProfileToNull() {
         this.currentProfile = null;
     }
+
+    public String toCSV() {
+        return name + ", " + username + ", " + password + ", " + email + ", " + birthYear;
+    }
 }
 
