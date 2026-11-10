@@ -19,6 +19,10 @@ public class User {
         this.birthYear = birthYear;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public void changePassword() {
         //this method is resposible for chaning the password of current user. user should be loggedout afterwards.
         //Make sure that he password followes rules and that the user enters it twice
@@ -54,6 +58,12 @@ public class User {
 
     public void deleteProfile() {
         //Delete current profile. remmeber to delete it from the arraylist of profiles
+    }
+
+    public void createProfile(String name, boolean isChild) {
+        Profile profile = new Profile(name, isChild);
+
+        profiles.add(profile);
     }
 
     public Profile chooseCurrentProfile() {

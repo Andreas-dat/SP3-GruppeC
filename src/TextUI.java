@@ -37,14 +37,11 @@ public class TextUI {
         System.out.println(msg);
         int input = 0;
         try {
-            input = scan.nextInt();
+            input = Integer.parseInt(scan.nextLine());
         } catch (InputMismatchException e) {
-            scan.nextLine();
             System.out.println("Skriv et tal");
             input = promptNumeric(msg);
         }
-
-        scan.nextLine();//scannerbug flush
 
         return input;
     }

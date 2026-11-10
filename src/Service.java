@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 
 public class Service {
+    private static final int CURRENTYEAR = 2026;
+    private static final int MINIMUMPASSWORDLENGTH = 8;
+
     private final String name;
     private User currentUser;
     private ArrayList<Media> media;
@@ -82,11 +85,26 @@ public class Service {
     public void registerUser() {
         //prompts user for name, username... check if valid
         //after successfully registering: startMenu()
+        String name = TextUI.promptText("Please enter a name:");
+        String eMail = getUserMail();
+        int birthYear = getUserBirthYear();
+        String username = getUserUsername();
+        String password = getUserPassword();
+
+        createUser(name, username, password, eMail, birthYear);
+
+        userLogin();
     }
 
-    private void createUser() {
+    private void createUser(String name, String username, String password, String eMail, int birthYear) {
         //create user object with parameters from method
         //add parameters
+        User user = new User(name, username, password, eMail, birthYear);
+        users.add(user);
+
+        //standard profiles
+        user.createProfile(name, false);
+        user.createProfile("Kids", true);
     }
 
 
@@ -95,7 +113,49 @@ public class Service {
         //set currentUser to null
     }
 
-    public ArrayList<Media> getMedia() {
-        return media;
+    //Getters for register User
+
+    private String getUserMail(){
+        String eMail = TextUI.promptText("Please enter your Email:"); //check if mail has characters '@' and '.'
+        if (eMail.indexOf('@') == -1 || eMail.indexOf('.') == -1){
+            getUserMail();
+        }
+        return eMail;
     }
+
+    private int getUserBirthYear(){
+        int birthYear = 0;
+        try {
+            birthYear = TextUI.promptNumeric("Please enter your birth year:");
+            if (birthYear < 1920 || birthYear > CURRENTYEAR){
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e){
+            TextUI.displayMessage("Please enter a valid number");
+            getUserBirthYear();
+        }
+        return birthYear;
+    }
+    private String getUserUsername(){
+        String username = TextUI.promptText("Please enter a username:"); //run through list of existing usernames, make sure username is not duplicate
+        for (User user : users){
+            if ((user.getUsername()).equals(username)){
+                getUserUsername();
+            }
+        }
+        return username;
+    }
+
+    private String getUserPassword(){
+        String password = TextUI.promptText("Please enter a password:"); //check if length is valid
+        if (password.length() < MINIMUMPASSWORDLENGTH){
+            getUserPassword();
+        }
+        return password;
+    }
+
+
+
+
+
 }
