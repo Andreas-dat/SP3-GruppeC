@@ -1,11 +1,11 @@
-public class Movie extends Media implements Watchable{
+import java.util.ArrayList;
 
-    public Movie(String title, double rating, int releaseYear) {
-        super(title, rating, releaseYear);
+public class Movie extends Media {
+
+    Movie(String title, int releaseYear, ArrayList<String> genres, double rating) {
+        super(title, releaseYear, genres, rating);
     }
-
-    @Override
-    public void play() {
-
+    Movie(String title,double rating,int releaseYear) {
+        super(title, rating, releaseYear);
     }
 }

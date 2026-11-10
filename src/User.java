@@ -30,7 +30,7 @@ public class User {
     }
 
     public void changeUsername() {
-        //Change usrename of currentuser. make sure it follows rules and it dosnt exsist
+        //Change usrename of currentuser. make sure it follows rules and it dosnt exsist Should also update the csv with profiles
         //log ouser out aftwewards
     }
 
@@ -38,7 +38,9 @@ public class User {
         //Change email of current user, make sure it follows rules (valid email etc)
         //User should be logged out afterwards
     }
-    private void loadProfiles() {
+    public void loadProfiles(String nickname, ArrayList<Media> planToWatch, ArrayList<Media> hasWatched) {
+        profiles.add(new Profile(nickname, planToWatch, hasWatched));
+
         //Load users profiles, list etc from corresponding csv documnet (Shuld happend on login)
     }
     private void changeProfile() {
@@ -64,6 +66,53 @@ public class User {
         profiles.add(profile);
     }
 
+    public Profile chooseCurrentProfile() {
+        displayProfiles();
+            int i = TextUI.promptNumeric("Choose profile");
+            try {
+                return profiles.get(i - 1);
+            } catch (IndexOutOfBoundsException e) {
+                TextUI.displayMessage(String.valueOf(e));
+                TextUI.displayMessage("invalid input\nShould be between 1-" + profiles.size());
+                chooseCurrentProfile();
+            }
+            return null;
+        }
 
 
-}
+    public void displayProfiles() {
+        ArrayList<String> profile = new ArrayList<>();
+        for(Profile p: profiles) {
+            profile.add(p.getNickname());
+        }
+        TextUI.displayList(profile,"List of profiles", true);
+    }
+
+    public void setCurrentProfile() {
+        this.currentProfile = chooseCurrentProfile();
+    }
+
+    public String getName () {
+            return name;
+        }
+
+        public String getPassword () {
+            return password;
+        }
+
+        public String getUsername () {
+            return username;
+        }
+
+        public Profile getCurrentProfile () {
+            return currentProfile;
+        }
+
+        public ArrayList<Profile> getProfiles () {
+            return profiles;
+        }
+
+        public void addProfile () {
+        }
+    }
+

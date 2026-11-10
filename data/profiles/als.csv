@@ -1,3 +1,4 @@
-nickname, list, list
-als
-kids
+nickname, hasWatched, planToWatch
+als;10,20;30,40
+kids;20,30;20
+Tanya;10,20,30;40
