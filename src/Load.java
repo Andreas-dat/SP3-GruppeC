@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 public class Load {
@@ -20,7 +21,7 @@ public class Load {
 
 
     private static ArrayList<Media> convertStringToMedia(String list, ArrayList<Media> mediaList) {
-        ArrayList<Media> media = new ArrayList();
+        ArrayList<Media> media = new ArrayList<>();
         String[] s = list.split(",");
 
         for(String l : s) {
@@ -39,6 +40,10 @@ public class Load {
     public static void loadMedia(ArrayList<Media> media, String path, String type) {
         //load movies.csv and series from csv file, create objects and add to media arraylist
         ArrayList<String> mediaData = FileIO.readData(path, false);
+        ArrayList<Categories> categories = new ArrayList<>();
+        for(Categories c : Categories.values()) {
+            categories.add(c);
+        }
 
         if (type.equals("movies")) {
 
@@ -46,11 +51,21 @@ public class Load {
                 String[] values = s.split(";");
                 String title = values[0];
                 int releaseYear = Integer.parseInt(values[1].trim());
+                ArrayList<Categories> movieGenre = new ArrayList<>();
+                String[] d = values[2].split(",");
+                for(String v : d) {
+                    for(Categories c : categories) {
+                        if(c.getCategory().equals(v.trim())) {
+                            movieGenre.add(c);
+                        }
+                    }
+
+                }
                 double rating = Double.parseDouble(values[3].replace(',', '.').trim());
 
                 //missing categories
 
-                Media m = new Movie(title, rating, releaseYear);
+                Media m = new Movie(title, movieGenre, releaseYear,rating);
                 media.add(m);
             }
         }
@@ -83,8 +98,17 @@ public class Load {
                     String[] seasonAndEpisode = (j.split("-"));
                     episodesInSeason.add(Integer.parseInt(seasonAndEpisode[1]));
                 }
-
-                Media m = new Series(title, rating, releaseYear, endOfRelease, episodesInSeason);
+                ArrayList<Categories> movieGenre = new ArrayList<>();
+                String[] d = values[2].split(",");
+                for(String v : d) {
+                    for (Categories c : categories) {
+                        if (c.getCategory().equals(v.trim()))
+                        {
+                            movieGenre.add(c);
+                        }
+                    }
+                }
+                Media m = new Series(title, movieGenre,  rating, releaseYear, endOfRelease, episodesInSeason);
                 media.add(m);
             }
         }

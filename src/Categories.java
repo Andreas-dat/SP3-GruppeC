@@ -1,4 +1,4 @@
-public enum Category {
+public enum Categories {
     ACTION("Action"),
     ADVENTURE("Adventure"),
     ANIMATION("Animation"),
@@ -25,7 +25,17 @@ public enum Category {
 
     private String category;
 
-    Category(String category){
+    Categories(String category){
         this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    @Override
+    public String toString() {
+        return category;
+
     }
 }

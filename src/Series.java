@@ -5,8 +5,8 @@ public class Series extends Media implements Watchable{
     private int endOfRelease;
     ArrayList<Integer> seasonsAndEpisodes;  //Nested ArrayLists for info om seasons og episodes
 
-    public Series(String title, double rating, int releaseYear, int endOfRelease, ArrayList<Integer> seasonsAndEpisodes) {
-        super(title, rating, releaseYear);
+    public Series(String title, ArrayList<Categories> genre, double rating, int releaseYear, int endOfRelease, ArrayList<Integer> seasonsAndEpisodes) {
+        super(title, genre, releaseYear, rating);
         this.endOfRelease = endOfRelease;
         this.seasonsAndEpisodes = seasonsAndEpisodes;
 
