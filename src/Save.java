@@ -24,7 +24,7 @@ public class Save {
 
         FileIO.saveData(profilesData, "data/profiles/" + user.getUsername() + ".csv", "Nickname; PlanToWatch; HasWatched; IsChild");
 
-        TextUI.displayMessage("Users saved to csv");
+        TextUI.displayMessage("Profiles saved to csv");
 
     }
 }
