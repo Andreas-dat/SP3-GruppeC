@@ -20,11 +20,14 @@ public class Service {
         int maxTries = 3;
         userLogin(maxTries);
         System.out.println(currentUser.getName());
-        Adapter.loadProfiles(currentUser, media);
+        Load.loadProfiles(currentUser, media);
         if(!currentUser.getProfiles().isEmpty()) {
             currentUser.chooseCurrentProfile();
         }
-        TextUI.displayList();
+
+        for(Media m : currentUser.getCurrentProfile().getHasWatched()) {
+            System.out.println(m);
+        }
 
                 //loadData()
         //startMenu()

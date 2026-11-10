@@ -19,9 +19,16 @@ public abstract class Media {
        this.title = title;
        this.releaseYear = releaseYear;
        this.rating = rating;
+       this.ID = idCount;
+       idCount++;
     }
 
     public int getID() {
         return ID;
+    }
+
+    @Override
+    public String toString() {
+        return title + " " + releaseYear + " " + ID;
     }
 }

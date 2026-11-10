@@ -33,4 +33,12 @@ public class Profile {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    public ArrayList<Media> getHasWatched() {
+        return hasWatched;
+    }
+
+    public ArrayList<Media> getPlanToWatch() {
+        return planToWatch;
+    }
 }

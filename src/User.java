@@ -57,7 +57,7 @@ public class User {
     }
 
     public void chooseCurrentProfile() {
-        currentProfile = Adapter.chooseProfile(profiles);
+        currentProfile = Load.chooseProfile(profiles);
         TextUI.displayMessage("you have chosen: " + currentProfile.getNickname());
     }
 
