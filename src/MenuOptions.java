@@ -58,6 +58,7 @@ public class MenuOptions {
     }
 
     public static ArrayList<String> searchMenu () {
+        menu.clear();
         menu.add("Rating");
         menu.add("Title");
         menu.add("Year");
