@@ -45,7 +45,21 @@ public class TextUI {
             System.out.println("Input cant be empty");
             input = promptNumeric(msg);
         }
+        return input;
+    }
 
+    public static double promptDecimal(String msg) {
+        System.out.println(msg);
+        double input = 0.0;
+        try {
+            input = Double.parseDouble(scan.nextLine());
+        } catch (InputMismatchException e) {
+            System.out.println("Write a decimal");
+            input = promptDecimal(msg);
+        } catch (NumberFormatException e) {
+            System.out.println("Input can't be empty");
+            input = promptNumeric(msg);
+        }
         return input;
     }
 
