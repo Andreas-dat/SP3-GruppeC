@@ -8,14 +8,15 @@ public class Service {
 
     public Service(String name) {
         this.name = name;
-        this.media = new ArrayList<>();
         this.currentUser = null;
-        this.users = new ArrayList<>();
+        this.users = Load.loadUsers();
+        this.media = new ArrayList<>();
+        Load.loadMedia(media,"data/media/movies.csv", "movies");
+        Load.loadMedia(media,"data/media/series.csv", "series");
     }
 
     public void startService() {
 
-        loadData();
 
         int maxTries = 3;
         userLogin(maxTries);
@@ -88,83 +89,7 @@ public class Service {
         //add parameters
     }
 
-    private void loadData() {
-        loadMedia("data/media/movies.csv", "movies");
-        loadMedia("data/media/series.csv", "series");
-        loadUsers("data/users/users.csv");
 
-    }
-
-    private void loadMedia(String path, String type) {
-        //load movies.csv and series from csv file, create objects and add to media arraylist
-        ArrayList<String> mediaData = FileIO.readData(path, false);
-
-        if (type.equals("movies")) {
-
-            for (String s : mediaData) {
-                String[] values = s.split(";");
-                String title = values[0];
-                int releaseYear = Integer.parseInt(values[1].trim());
-                double rating = Double.parseDouble(values[3].replace(',', '.').trim());
-
-                //missing categories
-
-                Media m = new Movie(title, rating, releaseYear);
-                media.add(m);
-            }
-        }
-
-        if (type.equals("series")) {
-            for (String s : mediaData) {
-                String[] values = s.split(";");
-                String title = values[0];
-                values[1] = values[1].trim();
-                double rating = Double.parseDouble(values[3].replace(',', '.').trim());
-
-                String[] releasePeriod = values[1].split("-");
-                int releaseYear = Integer.parseInt(releasePeriod[0].trim());
-                int endOfRelease;
-
-                if (!values[1].contains("-")) {
-                    endOfRelease = releaseYear;
-                } else if (releasePeriod.length < 2) {
-                    endOfRelease = -1;
-                } else {
-                    endOfRelease = Integer.parseInt(releasePeriod[1].trim());
-                }
-
-                //missing categories
-
-                String[] seasonsAndEpisodes = (values[4].split(","));
-                ArrayList<Integer> episodesInSeason = new ArrayList<>();
-
-                for (String j : seasonsAndEpisodes) {
-                    String[] seasonAndEpisode = (j.split("-"));
-                    episodesInSeason.add(Integer.parseInt(seasonAndEpisode[1]));
-                }
-
-                Media m = new Series(title, rating, releaseYear, endOfRelease, episodesInSeason);
-                media.add(m);
-            }
-        }
-    }
-
-    private void loadUsers(String path) {
-        //load users from csv file, create users and add to users arraylist
-        ArrayList<String> userData = FileIO.readData(path, true);
-
-        for (String s : userData) {
-            String[] values = s.split(",");
-            String name = values[0].trim();
-            String username = values[1].trim();
-            String password = values[2].trim();
-            String email = values[3].trim();
-            int birthYear = Integer.parseInt(values[4].trim());
-
-            User u = new User(name, username, password, email, birthYear);
-            users.add(u);
-        }
-    }
 
     private void logout() {
         //set currentUser to null

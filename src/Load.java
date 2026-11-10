@@ -51,10 +51,9 @@ public class Load {
         return media;
     }
 
-    private ArrayList<Media> loadMedia(String path, String type) {
+    public static void loadMedia(ArrayList<Media> media, String path, String type) {
         //load movies.csv and series from csv file, create objects and add to media arraylist
         ArrayList<String> mediaData = FileIO.readData(path, false);
-        ArrayList<Media> media = new ArrayList<>();
 
         if (type.equals("movies")) {
 
@@ -104,12 +103,12 @@ public class Load {
                 media.add(m);
             }
         }
-        return media;
     }
 
-    private void loadUsers(String path) {
+    public static ArrayList<User> loadUsers() {
         //load users from csv file, create users and add to users arraylist
-        ArrayList<String> userData = FileIO.readData(path, true);
+        ArrayList<String> userData = FileIO.readData("data/users/users.csv", true);
+        ArrayList<User> users = new ArrayList<>();
 
         for (String s : userData) {
             String[] values = s.split(",");
@@ -122,6 +121,7 @@ public class Load {
             User u = new User(name, username, password, email, birthYear);
             users.add(u);
         }
+        return users;
     }
 
 }
