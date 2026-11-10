@@ -1,7 +1,5 @@
-import jdk.jfr.Category;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class Load {
 
@@ -23,7 +21,7 @@ public class Load {
 
 
     private static ArrayList<Media> convertStringToMedia(String list, ArrayList<Media> mediaList) {
-        ArrayList<Media> media = new ArrayList();
+        ArrayList<Media> media = new ArrayList<>();
         String[] s = list.split(",");
 
         for(String l : s) {
