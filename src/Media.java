@@ -35,4 +35,16 @@ public abstract class Media {
     public double getRating() {
         return rating;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public ArrayList<String> getGenres() {
+        return genres;
+    }
+
+    public int getReleaseYear() {
+        return releaseYear;
+    }
 }
