@@ -56,31 +56,53 @@ public class User {
         //Delete current profile. remmeber to delete it from the arraylist of profiles
     }
 
-    public void chooseCurrentProfile() {
-        currentProfile = Load.chooseProfile(profiles);
-        TextUI.displayMessage("you have chosen: " + currentProfile.getNickname());
+    public Profile chooseCurrentProfile() {
+        displayProfiles();
+            int i = TextUI.promptNumeric("Choose profile");
+            try {
+                return profiles.get(i - 1);
+            } catch (IndexOutOfBoundsException e) {
+                TextUI.displayMessage(String.valueOf(e));
+                TextUI.displayMessage("invalid input\nShould be between 1-" + profiles.size());
+                chooseCurrentProfile();
+            }
+            return null;
+        }
+
+
+    public void displayProfiles() {
+        ArrayList<String> profile = new ArrayList<>();
+        for(Profile p: profiles) {
+            profile.add(p.getNickname());
+        }
+        TextUI.displayList(profile,"List of profiles", true);
     }
 
-    public String getName() {
-        return name;
+    public void setCurrentProfile() {
+        this.currentProfile = chooseCurrentProfile();
     }
 
-    public String getPassword() {
-        return password;
+    public String getName () {
+            return name;
+        }
+
+        public String getPassword () {
+            return password;
+        }
+
+        public String getUsername () {
+            return username;
+        }
+
+        public Profile getCurrentProfile () {
+            return currentProfile;
+        }
+
+        public ArrayList<Profile> getProfiles () {
+            return profiles;
+        }
+
+        public void addProfile () {
+        }
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public Profile getCurrentProfile() {
-        return currentProfile;
-    }
-
-    public ArrayList<Profile> getProfiles() {
-        return profiles;
-    }
-
-    public void addProfile() {
-    }
-}

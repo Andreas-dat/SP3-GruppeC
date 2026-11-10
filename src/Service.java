@@ -22,9 +22,9 @@ public class Service {
         userLogin(maxTries);
         System.out.println(currentUser.getName());
         Load.loadProfiles(currentUser, media);
-        if(!currentUser.getProfiles().isEmpty()) {
-            currentUser.chooseCurrentProfile();
-        }
+
+        currentUser.setCurrentProfile();
+
 
         for(Media m : currentUser.getCurrentProfile().getHasWatched()) {
             System.out.println(m);

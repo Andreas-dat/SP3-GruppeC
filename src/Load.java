@@ -1,22 +1,6 @@
 import java.util.ArrayList;
 
 public class Load {
-    public static Profile chooseProfile(ArrayList<Profile> profiles) {
-        ArrayList<String> profile = new ArrayList<>();
-        for(Profile p: profiles) {
-            profile.add(p.getNickname());
-        }
-        TextUI.displayList(profile,"List of profiles", true);
-       int i = TextUI.promptNumeric("Choose profile");
-       try {
-           return profiles.get(i - 1);
-       } catch (IndexOutOfBoundsException e) {
-           TextUI.displayMessage(String.valueOf(e));
-           TextUI.displayMessage("invalid input\nShould be between 1-" + profiles.size());
-           chooseProfile(profiles);
-       }
-       return null;
-    }
 
     public static void loadProfiles(User user, ArrayList<Media> media) {
         ArrayList<String> profile = FileIO.readData("data/profiles/" + user.getName() + ".csv", true);
