@@ -20,18 +20,9 @@ public class Service {
 
     public void startService() {
 
+        startMenu();
+        profileMenu();
 
-        int maxTries = 3;
-        userLogin(maxTries);
-        System.out.println(currentUser.getName());
-        Load.loadProfiles(currentUser, media);
-
-        currentUser.setCurrentProfile();
-
-
-        for(Media m : currentUser.getCurrentProfile().getHasWatched()) {
-            System.out.println(m);
-        }
 
                 //loadData()
         //startMenu()
@@ -39,33 +30,50 @@ public class Service {
 
     }
 
+    public void profileMenu() {
+        if(currentUser.getProfiles().isEmpty()) {
+            Load.loadProfiles(currentUser, media);
+        }
+
+        int profileCount = currentUser.getProfiles().size();
+
+        int choice = TextUI.promptMenuChoice(MenuOptions.profileMenu(currentUser.getProfiles()), "Choose profile");
+        if(profileCount >= choice) {
+            currentUser.setCurrentProfile(choice - 1);
+        }
+        else if(profileCount + 1 == choice && profileCount < 6) {
+            currentUser.createNewProfile();
+            profileMenu();
+        }
+
+    }
+
 
 
     public void startMenu() {
-        TextUI.displayMessage("Welcome to !" + name + "\nYou have the following options");
-        TextUI.displayMessage("");
-//1 for login
-        //2 register new user
+       int maxTries = 3;
+       int choice = TextUI.promptMenuChoice(MenuOptions.startMenu(), "Welcome to");
 
-        //prompts user for a number to choose login or register user
-        //userLogin() or registerUser()
+       switch(choice) {
+           case 1 -> userLogin(maxTries);
+           case 2 -> registerUser();
+       }
+
     }
 
-    private boolean userLogin(int tries) {
+    private void userLogin(int tries) {
         if (tries == 0) {
             TextUI.displayMessage("You have used your maximum amount of tries\nPlease try again later");
-            return false;
+            return;
         }
         String username = TextUI.promptText("Enter username");
         String password = TextUI.promptText("Enter password");
         if (checkUser(username, password)) {
             TextUI.displayMessage("Successful login\n Welcome " + currentUser.getName());
-            return true;
+            return;
         }
         TextUI.displayMessage("Invalid Username or Password\nyou have " + tries + " tries left");
         userLogin(tries - 1);
-        return false;
-        //prompts user for username and password and checks if correct and sets current user. otherwise prompt again
     }
 
     private boolean checkUser(String username, String password) {
@@ -93,7 +101,7 @@ public class Service {
 
         createUser(name, username, password, eMail, birthYear);
 
-        userLogin();
+        startMenu();
     }
 
     private void createUser(String name, String username, String password, String eMail, int birthYear) {
@@ -101,6 +109,7 @@ public class Service {
         //add parameters
         User user = new User(name, username, password, eMail, birthYear);
         users.add(user);
+        TextUI.displayMessage("User registered " + name);
 
         //standard profiles
         user.createProfile(name, false);

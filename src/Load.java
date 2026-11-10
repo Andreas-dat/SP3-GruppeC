@@ -10,9 +10,10 @@ public class Load {
             String name = s[0];
             ArrayList<Media> planToWatch = convertStringToMedia(s[1], media);
             ArrayList<Media> hasWatched = convertStringToMedia(s[2], media);
+            boolean isChild = Boolean.parseBoolean(s[3].trim());
 
 
-            user.loadProfiles(name, planToWatch, hasWatched);
+            user.loadProfiles(name, planToWatch, hasWatched, isChild);
         }
     }
 

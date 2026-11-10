@@ -81,9 +81,14 @@ public class TextUI {
         return choices;
     }
 
-    public int promptMenuChoice(ArrayList<String> menu, String msg) {
+
+    public static int promptMenuChoice(ArrayList<String> menu, String msg) {
         displayList(menu, msg, true);
         int input = promptNumeric("Type a number:");
+        if(input > menu.size()) {
+            System.out.println("Wrong number should be between 1 and " + menu.size());
+            promptMenuChoice(menu, msg);
+        }
         return input;
     }
 }

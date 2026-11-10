@@ -19,9 +19,6 @@ public class User {
         this.birthYear = birthYear;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
     public void changePassword() {
         //this method is resposible for chaning the password of current user. user should be loggedout afterwards.
@@ -38,8 +35,8 @@ public class User {
         //Change email of current user, make sure it follows rules (valid email etc)
         //User should be logged out afterwards
     }
-    public void loadProfiles(String nickname, ArrayList<Media> planToWatch, ArrayList<Media> hasWatched) {
-        profiles.add(new Profile(nickname, planToWatch, hasWatched));
+    public void loadProfiles(String nickname, ArrayList<Media> planToWatch, ArrayList<Media> hasWatched, boolean isChild) {
+        profiles.add(new Profile(nickname, planToWatch, hasWatched, isChild));
 
         //Load users profiles, list etc from corresponding csv documnet (Shuld happend on login)
     }
@@ -66,30 +63,16 @@ public class User {
         profiles.add(profile);
     }
 
-    public Profile chooseCurrentProfile() {
-        displayProfiles();
-            int i = TextUI.promptNumeric("Choose profile");
-            try {
-                return profiles.get(i - 1);
-            } catch (IndexOutOfBoundsException e) {
-                TextUI.displayMessage(String.valueOf(e));
-                TextUI.displayMessage("invalid input\nShould be between 1-" + profiles.size());
-                chooseCurrentProfile();
-            }
-            return null;
-        }
+    public void createNewProfile() {
+       String name = TextUI.promptText("Enter your nickname");
+       boolean isChild = TextUI.promptBinary("Are you a child? Y/n");
 
 
-    public void displayProfiles() {
-        ArrayList<String> profile = new ArrayList<>();
-        for(Profile p: profiles) {
-            profile.add(p.getNickname());
-        }
-        TextUI.displayList(profile,"List of profiles", true);
+       profiles.add(new Profile(name, isChild));
     }
 
-    public void setCurrentProfile() {
-        this.currentProfile = chooseCurrentProfile();
+    public void setCurrentProfile(int i) {
+        this.currentProfile = profiles.get(i);
     }
 
     public String getName () {
@@ -100,7 +83,7 @@ public class User {
             return password;
         }
 
-        public String getUsername () {
+        public String getUsername() {
             return username;
         }
 

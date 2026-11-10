@@ -9,12 +9,14 @@ public class Profile {
 
     public Profile(String nickname, boolean isChild) {
         this.nickname = nickname;
+        this.isChild = isChild;
         this.planToWatch = new ArrayList<>();
         this.hasWatched = new ArrayList<>();
     }
 
-    public Profile(String nickname, ArrayList<Media> planToWatch, ArrayList<Media> hasWatched) {
+    public Profile(String nickname, ArrayList<Media> planToWatch, ArrayList<Media> hasWatched, boolean isChild) {
         this.nickname = nickname;
+        this.isChild = isChild;
         this.planToWatch = planToWatch;
         this.hasWatched = hasWatched;
     }
