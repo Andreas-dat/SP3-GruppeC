@@ -43,7 +43,7 @@ public class Search {
     public static ArrayList<Media> searchByCategory(ArrayList<Media> media) {
         filteredList.clear();
         ArrayList<String> categories = new ArrayList<>();
-        for (Category c : Category.values()) {
+        for (Categories c : Categories.values()) {
             categories.add(c.name());
         }
 
@@ -52,11 +52,32 @@ public class Search {
 
         for (String choice : choices) {
             for (Media m : media) {
-                if (m.getGenres().contains(choice)) {
+                String genres = m.getGenres().toString().toUpperCase();
+                if (genres.contains(choice)) {
                     filteredList.add(m);
                 }
             }
         }
+
+
+
+        /* ArrayList<String> categories = new ArrayList<>();
+        for (Categories c : Categories.values()) {
+            categories.add(c.name());
+        }
+
+        int limit = TextUI.promptNumeric("How many categories do you want to add?");
+        ArrayList<String> choices = TextUI.promptChoice(categories, limit, "Choose your categories");
+
+        for (String choice : choices) {
+            for (Media m : media) {
+                if (m.toString().contains(choice)) {
+                    filteredList.add(m);
+                }
+            }
+        }
+
+         */
         return filteredList;
     }
 }

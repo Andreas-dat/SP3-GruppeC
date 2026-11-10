@@ -3,24 +3,19 @@ import java.util.ArrayList;
 public abstract class Media {
     private String title;
     private int releaseYear;
-    private ArrayList<String> genres;
+    private ArrayList<Categories> genres;
     private double rating;
     private int ID;
     private static int idCount;
 
-    Media(String title, int releaseYear, ArrayList<String> genres, double rating) {
-        this.title = title;
-        this.releaseYear = releaseYear;
-        this.genres = genres;
-        this.rating = rating;
-    }
 
-    public Media(String title, double rating, int releaseYear) {
-       this.title = title;
-       this.releaseYear = releaseYear;
-       this.rating = rating;
-       this.ID = idCount;
-       idCount++;
+    public Media(String title, ArrayList<Categories> genre, int releaseYear, double rating) {
+        this.title = title;
+        this.genres = genre;
+        this.releaseYear = releaseYear;
+        this.rating = rating;
+        this.ID = idCount;
+        idCount++;
     }
 
     public int getID() {
@@ -29,7 +24,7 @@ public abstract class Media {
 
     @Override
     public String toString() {
-        return title + " (" + releaseYear + ") " + "Rating: " + rating + ". ID: " + ID;
+        return title + " " + releaseYear + " " + ID + genres;
     }
 
     public double getRating() {
@@ -40,7 +35,7 @@ public abstract class Media {
         return title;
     }
 
-    public ArrayList<String> getGenres() {
+    public ArrayList<Categories> getGenres() {
         return genres;
     }
 
