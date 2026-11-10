@@ -6,7 +6,12 @@ public class MenuOptions {
 
     public static ArrayList<String> mainMenu() {
         menu.clear();
-        menu.add("");
+        menu.add("View all media");
+        menu.add("View history");
+        menu.add("View watchlist");
+        menu.add("Search");
+        menu.add("Change profile");
+        menu.add("Logout");
         return menu;
     }
 

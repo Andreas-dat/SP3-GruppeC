@@ -44,4 +44,16 @@ public class Profile {
     public ArrayList<Media> getPlanToWatch() {
         return planToWatch;
     }
+
+    public void toggleWatchList(Media media) {   //Adds media to watchlist if not already there. Otherwise, removes it
+        if (planToWatch.contains(media)) {
+            planToWatch.remove(media);
+        } else {
+            planToWatch.add(media);
+        }
+    }
+
+    public void removeFromHasWatched(Media media) {
+        hasWatched.remove(media);
+    }
 }

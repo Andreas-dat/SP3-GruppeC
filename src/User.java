@@ -76,26 +76,30 @@ public class User {
     }
 
     public String getName () {
-            return name;
-        }
-
-        public String getPassword () {
-            return password;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public Profile getCurrentProfile () {
-            return currentProfile;
-        }
-
-        public ArrayList<Profile> getProfiles () {
-            return profiles;
-        }
-
-        public void addProfile () {
-        }
+        return name;
     }
+
+    public String getPassword () {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public Profile getCurrentProfile () {
+        return currentProfile;
+    }
+
+    public ArrayList<Profile> getProfiles () {
+        return profiles;
+    }
+
+    public void addProfile () {
+    }
+
+    public void setCurrentProfileToNull() {
+        this.currentProfile = null;
+    }
+}
 

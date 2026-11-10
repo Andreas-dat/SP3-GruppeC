@@ -1,3 +1,5 @@
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class Service {
@@ -20,13 +22,13 @@ public class Service {
 
     public void startService() {
 
-        startMenu();
-        profileMenu();
-
-
-                //loadData()
-        //startMenu()
-
+        if (currentUser == null) {
+            startMenu();
+        }
+        if (currentUser.getCurrentProfile() == null) {
+            profileMenu();
+        }
+        mainMenu();
 
     }
 
@@ -48,8 +50,6 @@ public class Service {
 
     }
 
-
-
     public void startMenu() {
        int maxTries = 3;
        int choice = TextUI.promptMenuChoice(MenuOptions.startMenu(), "Welcome to");
@@ -58,7 +58,34 @@ public class Service {
            case 1 -> userLogin(maxTries);
            case 2 -> registerUser();
        }
+    }
 
+    public void mainMenu() {
+        int choice = TextUI.promptMenuChoice(MenuOptions.mainMenu(), "Main menu");
+
+        switch(choice) {
+            case 1 -> displayMediaList();
+            case 2 -> displayMediaList(currentUser.getCurrentProfile().getHasWatched());
+            case 3 -> displayMediaList(currentUser.getCurrentProfile().getPlanToWatch());
+            case 4 -> searchMenu();
+            case 5 -> {
+                currentUser.setCurrentProfileToNull();
+                startService();
+            }
+            case 6 -> logout();
+        }
+    }
+
+    private void mediaMenu(Media media) {
+        boolean isOnWatchlist = currentUser.getCurrentProfile().getPlanToWatch().contains(media);
+        boolean isOnHasWatched = currentUser.getCurrentProfile().getHasWatched().contains(media);
+
+        int choice = TextUI.promptMenuChoice(MenuOptions.mediaMenu(isOnWatchlist, isOnHasWatched), "Choose an option");
+        switch(choice) {
+            case 1 -> media.play();
+            case 2 -> currentUser.getCurrentProfile().toggleWatchList(media);
+            case 3 -> currentUser.getCurrentProfile().removeFromHasWatched(media);
+        }
     }
 
     private void userLogin(int tries) {
@@ -120,6 +147,7 @@ public class Service {
 
     private void logout() {
         //set currentUser to null
+        //startService();;
     }
 
     //Getters for register User
@@ -163,8 +191,17 @@ public class Service {
         return password;
     }
 
-
-
+    public void displayMediaList(ArrayList<Media> media) {
+        ArrayList<String> mediaList = new ArrayList<>();
+        for (Media m : media) {
+            mediaList.add(m.toString());
+        }
+        //Method should show list based on criteria (or no criteria)
+        //Should be able to choose a media from the list
+        int choice = TextUI.promptMenuChoice(mediaList, "Choose a movie or film");
+        Media mediaChoice = media.get(choice - 1);
+        mediaMenu(mediaChoice);
+    }
 
 
 }
