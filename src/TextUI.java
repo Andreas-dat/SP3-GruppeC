@@ -39,7 +39,10 @@ public class TextUI {
         try {
             input = Integer.parseInt(scan.nextLine());
         } catch (InputMismatchException e) {
-            System.out.println("Skriv et tal");
+            System.out.println("Write a number");
+            input = promptNumeric(msg);
+        } catch (NumberFormatException e) {
+            System.out.println("Input cant be empty");
             input = promptNumeric(msg);
         }
 

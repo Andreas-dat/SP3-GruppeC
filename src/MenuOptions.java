@@ -39,7 +39,7 @@ public class MenuOptions {
 
     public static ArrayList<String> mediaMenu(boolean isOnWatchlist, boolean isOnHasWatched) {
         menu.clear();
-        menu.add("play media");
+        menu.add("Play media");
 
         if (isOnWatchlist) {     //If-statement checks if current profile contains the movie/series, user options vary on result
             menu.add("Remove from watchlist");
@@ -50,9 +50,20 @@ public class MenuOptions {
             menu.add("Remove from watch history");       //todo: beslut om vi denne funktionalitet er nødvendig
         }
 
+        menu.add("Main menu");
+
         return menu;
 
 
+    }
+
+    public static ArrayList<String> searchMenu () {
+        menu.add("Rating");
+        menu.add("Title");
+        menu.add("Year");
+        menu.add("Category");
+
+        return menu;
     }
 
 }

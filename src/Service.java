@@ -64,7 +64,7 @@ public class Service {
         int choice = TextUI.promptMenuChoice(MenuOptions.mainMenu(), "Main menu");
 
         switch(choice) {
-            case 1 -> displayMediaList();
+            case 1 -> displayMediaList(media);
             case 2 -> displayMediaList(currentUser.getCurrentProfile().getHasWatched());
             case 3 -> displayMediaList(currentUser.getCurrentProfile().getPlanToWatch());
             case 4 -> searchMenu();
@@ -76,16 +76,46 @@ public class Service {
         }
     }
 
-    private void mediaMenu(Media media) {
-        boolean isOnWatchlist = currentUser.getCurrentProfile().getPlanToWatch().contains(media);
-        boolean isOnHasWatched = currentUser.getCurrentProfile().getHasWatched().contains(media);
+    private void watchableMediaMenu(Media media) {
+        Profile profile = currentUser.getCurrentProfile();
 
-        int choice = TextUI.promptMenuChoice(MenuOptions.mediaMenu(isOnWatchlist, isOnHasWatched), "Choose an option");
-        switch(choice) {
-            case 1 -> media.play();
-            case 2 -> currentUser.getCurrentProfile().toggleWatchList(media);
-            case 3 -> currentUser.getCurrentProfile().removeFromHasWatched(media);
+        Watchable w = (Watchable)media;
+
+        boolean running = true;
+        while (running) {
+            boolean isOnWatchlist = profile.getPlanToWatch().contains(media);
+            boolean isOnHasWatched = profile.getHasWatched().contains(media);
+            int choice = TextUI.promptMenuChoice(MenuOptions.mediaMenu(isOnWatchlist, isOnHasWatched), "Choose an option");
+            switch (choice) {
+                case 1 -> w.play(profile);
+                case 2 -> currentUser.getCurrentProfile().toggleWatchList(media);
+                case 3 -> {
+                    if (isOnHasWatched) {
+                        currentUser.getCurrentProfile().removeFromHasWatched(media);
+                    } else {
+                        running = false;
+                    }
+                }
+                case 4 -> running = false;
+            }
         }
+        mainMenu();
+    }
+
+    public void searchMenu() {
+        int choice = TextUI.promptMenuChoice(MenuOptions.mainMenu(), "Search menu");
+
+        /*
+        switch (choice) {
+            case 1 -> Search.searchByRating();
+            case 2 -> Search.searchByTitle();
+            case 3 -> Search.searchByYear();
+            case 4 -> Search.searchByCategory();
+
+        }
+
+         */
+
     }
 
     private void userLogin(int tries) {
@@ -146,8 +176,9 @@ public class Service {
 
 
     private void logout() {
-        //set currentUser to null
-        //startService();;
+        currentUser.setCurrentProfileToNull();
+        currentUser = null;
+        startService();
     }
 
     //Getters for register User
@@ -196,11 +227,16 @@ public class Service {
         for (Media m : media) {
             mediaList.add(m.toString());
         }
+        mediaList.add("Main menu");
         //Method should show list based on criteria (or no criteria)
         //Should be able to choose a media from the list
         int choice = TextUI.promptMenuChoice(mediaList, "Choose a movie or film");
+        if (choice == mediaList.size()) {
+            mainMenu();
+            return;
+        }
         Media mediaChoice = media.get(choice - 1);
-        mediaMenu(mediaChoice);
+        watchableMediaMenu(mediaChoice);
     }
 
 

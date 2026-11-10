@@ -25,6 +25,14 @@ public class Profile {
         //This method adds to a list. Should work for both adding to hasWatched and planToWatch
     }
 
+    public void addToHasWatched(Media media) {
+        hasWatched.add(media);
+    }
+
+    public void addToPlanToWatch(Media media) {
+        planToWatch.add(media);
+    }
+
     public void removeFromList() {
         //Removes selected media from list.
     }

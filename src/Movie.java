@@ -11,7 +11,8 @@ public class Movie extends Media implements Watchable {
 
 
     @Override
-    public void play() {
+    public void play(Profile profile) {
         TextUI.displayMessage("Now playing " + this.toString());
+        profile.addToHasWatched(this);
     }
 }

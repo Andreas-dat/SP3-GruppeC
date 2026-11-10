@@ -13,8 +13,9 @@ public class Series extends Media implements Watchable{
     }
 
     @Override
-    public void play() {
+    public void play(Profile profile) {
         TextUI.displayMessage("Now playing " + this.toString());
+        profile.addToHasWatched(this);
         //Plays the specific episode from the series. Prints message "Now playing..." and saves it to profile's hasWatched
     }
 }

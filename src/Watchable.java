@@ -1,3 +1,3 @@
 public interface Watchable {
-    void play();
+    void play(Profile profile);
 }
