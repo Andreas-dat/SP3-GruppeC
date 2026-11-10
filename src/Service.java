@@ -171,11 +171,14 @@ public class Service {
         //standard profiles
         user.createProfile(name, false);
         user.createProfile("Kids", true);
+        Save.saveProfiles(user);
     }
 
 
 
     private void logout() {
+        Save.saveUsers(users);
+        Save.saveProfiles(currentUser);
         currentUser.setCurrentProfileToNull();
         currentUser = null;
         startService();
