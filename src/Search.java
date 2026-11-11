@@ -58,9 +58,7 @@ public class Search {
 
     public static ArrayList<Media> searchByCategory(ArrayList<Media> media) {
         filteredList.clear();
-        for (Media m : media) {
-            filteredList.add(m);
-        }
+        filteredList.addAll(media);
         ArrayList<String> categories = new ArrayList<>();
         for (Categories c : Categories.values()) {
             categories.add(c.name());
@@ -77,26 +75,19 @@ public class Search {
                 }
             }
         }
+        return filteredList;
+    }
 
-
-
-        /* ArrayList<String> categories = new ArrayList<>();
-        for (Categories c : Categories.values()) {
-            categories.add(c.name());
-        }
-
-        int limit = TextUI.promptNumeric("How many categories do you want to add?");
-        ArrayList<String> choices = TextUI.promptChoice(categories, limit, "Choose your categories");
-
-        for (String choice : choices) {
-            for (Media m : media) {
-                if (m.toString().contains(choice)) {
-                    filteredList.add(m);
-                }
+    public static ArrayList<Media> familyMedia(ArrayList<Media> media)  {
+        filteredList.clear();
+        filteredList.addAll(media);
+        for (Media m : media) {
+            String genres = m.getGenres().toString().toUpperCase();
+            if (!genres.contains(Categories.FAMILY.name())) {
+                filteredList.remove(m);
             }
         }
 
-         */
         return filteredList;
     }
 }

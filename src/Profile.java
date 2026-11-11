@@ -89,4 +89,8 @@ public class Profile {
 
         return stringBuilder.toString();
     }
+
+    public Boolean getIsChild() {
+        return isChild;
+    }
 }

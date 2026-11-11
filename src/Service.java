@@ -1,5 +1,3 @@
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class Service {
@@ -8,6 +6,8 @@ public class Service {
 
     private final String name;
     private User currentUser;
+    private ArrayList<Media> currentMedia;
+    private ArrayList<Media> familyMedia;
     private ArrayList<Media> media;
     private ArrayList<User> users;
 
@@ -15,9 +15,11 @@ public class Service {
         this.name = name;
         this.currentUser = null;
         this.users = Load.loadUsers();
+        this.currentMedia = new ArrayList<>();
         this.media = new ArrayList<>();
         Load.loadMedia(media,"data/media/movies.csv", "movies");
         Load.loadMedia(media,"data/media/series.csv", "series");
+        this.familyMedia = Search.familyMedia(media);
     }
 
     public void startService() {
@@ -34,13 +36,21 @@ public class Service {
 
     public void profileMenu() {
         if(currentUser.getProfiles().isEmpty()) {
-            Load.loadProfiles(currentUser, media);
+            Load.loadProfiles(currentUser, currentMedia);
         }
 
         int profileCount = currentUser.getProfiles().size();
 
         int choice = TextUI.promptMenuChoice(MenuOptions.profileMenu(currentUser.getProfiles()), "Choose profile");
         if(profileCount >= choice) {
+            if(currentUser.getProfiles().get(choice - 1).getIsChild()) {
+                currentMedia = familyMedia;
+
+            } else {
+                currentMedia = media;
+
+
+            }
             currentUser.setCurrentProfile(choice - 1);
         }
         else if(profileCount + 1 == choice && profileCount < 6) {
@@ -64,7 +74,7 @@ public class Service {
         int choice = TextUI.promptMenuChoice(MenuOptions.mainMenu(), "Main menu");
 
         switch(choice) {
-            case 1 -> displayMediaList(media);
+            case 1 -> displayMediaList(currentMedia);
             case 2 -> displayMediaList(currentUser.getCurrentProfile().getHasWatched());
             case 3 -> displayMediaList(currentUser.getCurrentProfile().getPlanToWatch());
             case 4 -> searchMenu();
@@ -107,11 +117,11 @@ public class Service {
 
         int choice = TextUI.promptMenuChoice(MenuOptions.searchMenu(), "Search by:");
         switch (choice) {
-            case 1 -> filteredList = Search.searchByRating(media);
-            case 2 -> filteredList = Search.searchByTitle(media);
-            case 3 -> filteredList = Search.searchByYear(media);
-            case 4 -> filteredList = Search.searchByDecade(media);
-            case 5 -> filteredList = Search.searchByCategory(media);
+            case 1 -> filteredList = Search.searchByRating(currentMedia);
+            case 2 -> filteredList = Search.searchByTitle(currentMedia);
+            case 3 -> filteredList = Search.searchByYear(currentMedia);
+            case 4 -> filteredList = Search.searchByDecade(currentMedia);
+            case 5 -> filteredList = Search.searchByCategory(currentMedia);
         }
         displayMediaList(filteredList);
     }
