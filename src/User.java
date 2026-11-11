@@ -37,10 +37,12 @@ public class User {
         //Delete current profile. remmeber to delete it from the arraylist of profiles
     }
 
-    public void createProfile(String name, boolean isChild) {
-        Profile profile = new Profile(name, isChild);
+    public void createStandardProfiles(String name) {
+        Profile profile1 = new Profile(name, false);
+        Profile profile2 = new Profile("Kids", true);
 
-        profiles.add(profile);
+        profiles.add(profile1);
+        profiles.add(profile2);
     }
 
     public void createNewProfile() {

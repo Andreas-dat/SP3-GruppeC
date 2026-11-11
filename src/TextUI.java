@@ -29,7 +29,9 @@ public class TextUI {
     }
 
     public static int promptNumeric(String msg) {
-        System.out.println(msg);
+        if (!msg.isEmpty()) {
+            System.out.println(msg);
+        }
         int input;
         try {
             input = Integer.parseInt(scan.nextLine());
@@ -104,10 +106,10 @@ public class TextUI {
 
     public static int promptMenuChoice(ArrayList<String> menu, String msg) {
         displayMenu(menu, msg, true);
-        int input = promptNumeric("Type a number:");
-        if(input > menu.size() || input < 0) {
-            System.out.println("Wrong number should be between 1 and " + menu.size());
-            promptMenuChoice(menu, msg);
+        int input = promptNumeric("");
+        if(input >= menu.size() || input < 0) {
+            System.out.println("Wrong number should be between 0 and " + (menu.size() - 1));
+            return promptMenuChoice(menu, msg);
         }
         return input;
     }
