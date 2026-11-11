@@ -4,14 +4,22 @@ import java.util.ArrayList;
 public class Load {
 
     public static void loadProfiles(User user, ArrayList<Media> media) {
-        ArrayList<String> profile = FileIO.readData("data/profiles/" + user.getName() + ".csv", true);
+        ArrayList<String> profile = FileIO.readData("data/profiles/" + user.getUsername() + ".csv", true);
 
         for (String p : profile) {
+            ArrayList<Media> planToWatch = new ArrayList<>();
+            ArrayList<Media> hasWatched = new ArrayList<>();
             String[] s = p.split(";");
             String name = s[0];
-            ArrayList<Media> planToWatch = convertStringToMedia(s[1], media);
-            ArrayList<Media> hasWatched = convertStringToMedia(s[2], media);
-            boolean isChild = Boolean.parseBoolean(s[3].trim());
+            boolean isChild = Boolean.parseBoolean(s[1].trim());
+            try {
+                planToWatch = convertStringToMedia(s[2], media);
+            }catch (NumberFormatException e) {
+            }
+            try {
+                hasWatched = convertStringToMedia(s[3], media);
+            } catch (NumberFormatException e) {
+            }
 
 
             user.loadProfiles(name, planToWatch, hasWatched, isChild);
