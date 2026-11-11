@@ -25,7 +25,8 @@ public class User {
     }
 
     private void changeNickname() {
-        //change nickname of current profile on the user, check rules etc (Not the same name as another profile)
+        String nickname = TextUI.promptText("Change the name of " + currentProfile.getNickname() + "\n To:");
+        this.currentProfile.setNickname(nickname);
 
     }
 
