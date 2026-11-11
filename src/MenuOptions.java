@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class MenuOptions {
     private static ArrayList<String> menu = new ArrayList();
 
-
     public static ArrayList<String> mainMenu() {
         menu.clear();
         menu.add("View all media");
@@ -19,6 +18,7 @@ public class MenuOptions {
         menu.clear();
         menu.add("Login");
         menu.add("Register User");
+        menu.add("Exit");
 
         return menu;
     }
@@ -32,10 +32,9 @@ public class MenuOptions {
             menu.add("Create profile");
         }
         //TODO: Edit profile?
+        menu.add("Logout");
         return menu;
     }
-
-
 
     public static ArrayList<String> mediaMenu(boolean isOnWatchlist, boolean isOnHasWatched) {
         menu.clear();
@@ -53,8 +52,6 @@ public class MenuOptions {
         menu.add("Main menu");
 
         return menu;
-
-
     }
 
     public static ArrayList<String> searchMenu () {
@@ -65,7 +62,10 @@ public class MenuOptions {
         menu.add("Decade");
         menu.add("Category");
 
+        menu.add("Main menu");
+
         return menu;
     }
+
 
 }

@@ -6,7 +6,6 @@ public class Movie extends Media implements Watchable {
         super(title, genres, releaseYear, rating);
     }
 
-
     @Override
     public void play(Profile profile) {
         TextUI.displayMessage("Now playing " + this.toString());

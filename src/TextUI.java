@@ -4,11 +4,6 @@ import java.util.Scanner;
 
 public class TextUI {
 
-    /*
-    ' shows the options, promts for choices until limit is reached, and returns the user's choices as a list of Strings
-    + ArrayList<String> promptChoice(ArrayList<String> options, int limit, String msg)
-    */
-
     static Scanner scan = new Scanner(System.in);
 
     public static String promptText(String msg) {
@@ -63,18 +58,34 @@ public class TextUI {
         return input;
     }
 
+    public static void displayMenu(ArrayList<String> list, String msg, boolean numbered) {//parameter der forstæller OM listen er nummereret eller ej.
+        System.out.println(msg);
+
+        for (int i = 0; i < list.size(); i++) {
+
+            String s;
+            if (numbered) {
+                if (i == list.size() -1) {
+                    s = 0 + ". " + list.get(i);
+                } else {
+                    s = i + 1 + ". " + list.get(i);
+                }
+            } else {
+                s = list.get(i);
+            }
+            System.out.println(s);
+        }
+    }
+
     public static void displayList(ArrayList<String> list, String msg, boolean numbered) {//parameter der forstæller OM listen er nummereret eller ej.
         System.out.println(msg);
 
         for (int i = 0; i < list.size(); i++) {
 
-            // String s = numbered?i+1+". "+ list.get(i):list.get(i);
             String s;
             if (numbered) {
                 s = i + 1 + ". " + list.get(i);
-
             } else {
-
                 s = list.get(i);
             }
             System.out.println(s);
@@ -85,7 +96,6 @@ public class TextUI {
         displayList(options, msg, true);
         ArrayList<String> choices = new ArrayList<>();
 
-        //kør et while loop, så længe limit ikke er nået
         while (choices.size() < limit) {
             int input = promptNumeric(msg);
             if (input > 0 && input <= options.size()) {
@@ -98,11 +108,10 @@ public class TextUI {
         return choices;
     }
 
-
     public static int promptMenuChoice(ArrayList<String> menu, String msg) {
-        displayList(menu, msg, true);
+        displayMenu(menu, msg, true);
         int input = promptNumeric("Type a number:");
-        if(input > menu.size()) {
+        if(input > menu.size() || input < 0) {
             System.out.println("Wrong number should be between 1 and " + menu.size());
             promptMenuChoice(menu, msg);
         }

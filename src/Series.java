@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Series extends Media implements Watchable{
 
     private int endOfRelease;
-    ArrayList<Integer> seasonsAndEpisodes;  //Nested ArrayLists for info om seasons og episodes
+    ArrayList<Integer> seasonsAndEpisodes;
 
     public Series(String title, ArrayList<Categories> genre, double rating, int releaseYear, int endOfRelease, ArrayList<Integer> seasonsAndEpisodes) {
         super(title, genre, releaseYear, rating);
@@ -18,7 +18,6 @@ public class Series extends Media implements Watchable{
         if (!profile.getHasWatched().contains(this)) {
             profile.addToHasWatched(this);
         }
-        //Plays the specific episode from the series. Prints message "Now playing..." and saves it to profile's hasWatched
     }
 
     public int getEndOfRelease() {
@@ -28,9 +27,9 @@ public class Series extends Media implements Watchable{
     @Override
     public String toString() {
         if(getEndOfRelease() == -1) {
-            return getTitle() + " (" + getReleaseYear() + "- ) " + "Rating: " + getRating() + " " + getGenres() + ". ID: " + getID();
+            return getTitle() + " (" + getReleaseYear() + "- ) " + "Rating: " + getRating() + " " + getCategories();
         }
-        return getTitle() + " (" + getReleaseYear() + "-" + getEndOfRelease() + ") " + "Rating: " + getRating() + " " + getGenres() + ". ID: " + getID();
+        return getTitle() + " (" + getReleaseYear() + "-" + getEndOfRelease() + ") " + "Rating: " + getRating() + " " + getCategories();
     }
 
 }

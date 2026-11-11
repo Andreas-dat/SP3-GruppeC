@@ -9,6 +9,7 @@ public class Load {
         for (String p : profile) {
             ArrayList<Media> planToWatch = new ArrayList<>();
             ArrayList<Media> hasWatched = new ArrayList<>();
+
             String[] s = p.split(";");
             String name = s[0];
             boolean isChild = Boolean.parseBoolean(s[1].trim());
@@ -21,8 +22,7 @@ public class Load {
             } catch (NumberFormatException e) {
             }
 
-
-            user.loadProfiles(name, planToWatch, hasWatched, isChild);
+            user.createProfile(name, planToWatch, hasWatched, isChild);
         }
     }
 
@@ -48,10 +48,6 @@ public class Load {
     public static void loadMedia(ArrayList<Media> media, String path, String type) {
         //load movies.csv and series from csv file, create objects and add to media arraylist
         ArrayList<String> mediaData = FileIO.readData(path, false);
-        ArrayList<Categories> categories = new ArrayList<>();
-        for(Categories c : Categories.values()) {
-            categories.add(c);
-        }
 
         if (type.equals("movies")) {
 
@@ -62,7 +58,7 @@ public class Load {
                 ArrayList<Categories> movieGenre = new ArrayList<>();
                 String[] d = values[2].split(",");
                 for(String v : d) {
-                    for(Categories c : categories) {
+                    for(Categories c : Categories.values()) {
                         if(c.getCategory().equalsIgnoreCase(v.trim())) {
                             movieGenre.add(c);
                         }
@@ -109,7 +105,7 @@ public class Load {
                 ArrayList<Categories> movieGenre = new ArrayList<>();
                 String[] d = values[2].split(",");
                 for(String v : d) {
-                    for (Categories c : categories) {
+                    for (Categories c : Categories.values()) {
                         if (c.getCategory().equalsIgnoreCase(v.trim()))
                         {
                             movieGenre.add(c);

@@ -19,29 +19,9 @@ public class User {
         this.birthYear = birthYear;
     }
 
-
-    public void changePassword() {
-        //this method is resposible for chaning the password of current user. user should be loggedout afterwards.
-        //Make sure that he password followes rules and that the user enters it twice
-        //Should be logged out afterwards
-    }
-
-    public void changeUsername() {
-        //Change usrename of currentuser. make sure it follows rules and it dosnt exsist Should also update the csv with profiles
-        //log ouser out aftwewards
-    }
-
-    public void changeMail() {
-        //Change email of current user, make sure it follows rules (valid email etc)
-        //User should be logged out afterwards
-    }
-    public void loadProfiles(String nickname, ArrayList<Media> planToWatch, ArrayList<Media> hasWatched, boolean isChild) {
+    public void createProfile(String nickname, ArrayList<Media> planToWatch, ArrayList<Media> hasWatched, boolean isChild) {
         profiles.add(new Profile(nickname, planToWatch, hasWatched, isChild));
 
-        //Load users profiles, list etc from corresponding csv documnet (Shuld happend on login)
-    }
-    private void changeProfile() {
-        //Change current profile to another valid profile that exsists
     }
 
     private void changeNickname() {
@@ -66,7 +46,6 @@ public class User {
     public void createNewProfile() {
        String name = TextUI.promptText("Enter your nickname");
        boolean isChild = TextUI.promptBinary("Are you a child? Y/n");
-
 
        profiles.add(new Profile(name, isChild));
     }
@@ -93,9 +72,6 @@ public class User {
 
     public ArrayList<Profile> getProfiles () {
         return profiles;
-    }
-
-    public void addProfile () {
     }
 
     public void setCurrentProfileToNull() {

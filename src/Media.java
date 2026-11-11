@@ -3,15 +3,15 @@ import java.util.ArrayList;
 public abstract class Media {
     private String title;
     private int releaseYear;
-    private ArrayList<Categories> genres;
+    private ArrayList<Categories> categories;
     private double rating;
     private int ID;
     private static int idCount;
 
 
-    public Media(String title, ArrayList<Categories> genre, int releaseYear, double rating) {
+    public Media(String title, ArrayList<Categories> categories, int releaseYear, double rating) {
         this.title = title;
-        this.genres = genre;
+        this.categories = categories;
         this.releaseYear = releaseYear;
         this.rating = rating;
         this.ID = idCount;
@@ -24,7 +24,7 @@ public abstract class Media {
 
     @Override
     public String toString() {
-        return title + " " + releaseYear + " " + ID + genres;
+        return getTitle() + " (" + getReleaseYear() + ") " + "Rating: " + getRating() + " " + getCategories();
     }
 
     public double getRating() {
@@ -35,8 +35,8 @@ public abstract class Media {
         return title;
     }
 
-    public ArrayList<Categories> getGenres() {
-        return genres;
+    public ArrayList<Categories> getCategories() {
+        return categories;
     }
 
     public int getReleaseYear() {

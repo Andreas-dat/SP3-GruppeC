@@ -22,7 +22,7 @@ public class Search {
         String search = TextUI.promptText("Search for a title");
 
         for (Media m : media) {
-            if (m.getTitle().contains(search)) {
+            if (m.getTitle().toUpperCase().contains(search.toUpperCase())) {
                 filteredList.add(m);
             }
         }
@@ -69,7 +69,7 @@ public class Search {
 
         for (String choice : choices) {
             for (Media m : media) {
-                String genres = m.getGenres().toString();
+                String genres = m.getCategories().toString();
                 if (!genres.contains(choice)) {
                     filteredList.remove(m);
                 }
@@ -82,7 +82,7 @@ public class Search {
         filteredList.clear();
         filteredList.addAll(media);
         for (Media m : media) {
-            String genres = m.getGenres().toString().toUpperCase();
+            String genres = m.getCategories().toString().toUpperCase();
             if (!genres.contains(Categories.FAMILY.name())) {
                 filteredList.remove(m);
             }

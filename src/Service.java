@@ -10,6 +10,7 @@ public class Service {
     private ArrayList<Media> familyMedia;
     private ArrayList<Media> media;
     private ArrayList<User> users;
+    private boolean running;
 
     public Service(String name) {
         this.name = name;
@@ -22,16 +23,20 @@ public class Service {
         this.familyMedia = Search.familyMedia(media);
     }
 
-    public void startService() {
+    public void runService() {
+        running = true;
 
-        if (currentUser == null) {
-            startMenu();
+        while (running) {
+            if (currentUser == null) {
+                startMenu();
+            }
+            if (running && currentUser.getCurrentProfile() == null) {
+                profileMenu();
+            }
+            if(running && currentUser != null) {
+                mainMenu();
+            }
         }
-        if (currentUser.getCurrentProfile() == null) {
-            profileMenu();
-        }
-        mainMenu();
-
     }
 
     public void profileMenu() {
@@ -42,14 +47,16 @@ public class Service {
         int profileCount = currentUser.getProfiles().size();
 
         int choice = TextUI.promptMenuChoice(MenuOptions.profileMenu(currentUser.getProfiles()), "Choose profile");
+        if (choice == 0) {
+            logout();
+            return;
+        }
         if(profileCount >= choice) {
             if(currentUser.getProfiles().get(choice - 1).getIsChild()) {
                 currentMedia = familyMedia;
 
             } else {
                 currentMedia = media;
-
-
             }
             currentUser.setCurrentProfile(choice - 1);
         }
@@ -65,6 +72,7 @@ public class Service {
        int choice = TextUI.promptMenuChoice(MenuOptions.startMenu(), "Welcome to");
 
        switch(choice) {
+           case 0 -> running = false;
            case 1 -> userLogin(maxTries);
            case 2 -> registerUser();
        }
@@ -74,15 +82,14 @@ public class Service {
         int choice = TextUI.promptMenuChoice(MenuOptions.mainMenu(), "Main menu");
 
         switch(choice) {
+            case 0 -> logout();
             case 1 -> displayMediaList(currentMedia);
             case 2 -> displayMediaList(currentUser.getCurrentProfile().getHasWatched());
             case 3 -> displayMediaList(currentUser.getCurrentProfile().getPlanToWatch());
             case 4 -> searchMenu();
             case 5 -> {
                 currentUser.setCurrentProfileToNull();
-                startService();
             }
-            case 6 -> logout();
         }
     }
 
@@ -97,6 +104,7 @@ public class Service {
             boolean isOnHasWatched = profile.getHasWatched().contains(media);
             int choice = TextUI.promptMenuChoice(MenuOptions.mediaMenu(isOnWatchlist, isOnHasWatched), "Choose an option");
             switch (choice) {
+                case 0 -> running = false;
                 case 1 -> w.play(profile);
                 case 2 -> currentUser.getCurrentProfile().toggleWatchList(media);
                 case 3 -> {
@@ -106,10 +114,8 @@ public class Service {
                         running = false;
                     }
                 }
-                case 4 -> running = false;
             }
         }
-        mainMenu();
     }
 
     public void searchMenu() {
@@ -117,6 +123,9 @@ public class Service {
 
         int choice = TextUI.promptMenuChoice(MenuOptions.searchMenu(), "Search by:");
         switch (choice) {
+            case 0 -> {
+                return;
+            }
             case 1 -> filteredList = Search.searchByRating(currentMedia);
             case 2 -> filteredList = Search.searchByTitle(currentMedia);
             case 3 -> filteredList = Search.searchByYear(currentMedia);
@@ -129,6 +138,7 @@ public class Service {
     private void userLogin(int tries) {
         if (tries == 0) {
             TextUI.displayMessage("You have used your maximum amount of tries\nPlease try again later");
+            startMenu();
             return;
         }
         String username = TextUI.promptText("Enter username");
@@ -189,7 +199,6 @@ public class Service {
         Save.saveProfiles(currentUser);
         currentUser.setCurrentProfileToNull();
         currentUser = null;
-        startService();
     }
 
     //Getters for register User
@@ -242,13 +251,10 @@ public class Service {
         //Method should show list based on criteria (or no criteria)
         //Should be able to choose a media from the list
         int choice = TextUI.promptMenuChoice(mediaList, "Choose a movie or film");
-        if (choice == mediaList.size()) {
-            mainMenu();
+        if (choice == 0) {
             return;
         }
         Media mediaChoice = media.get(choice - 1);
         watchableMediaMenu(mediaChoice);
     }
-
-
 }
