@@ -90,6 +90,7 @@ public class Service {
             case 5 -> {
                 currentUser.setCurrentProfileToNull();
             }
+            case 6 -> currentUser.changeNickname();
         }
     }
 

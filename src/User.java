@@ -24,7 +24,7 @@ public class User {
 
     }
 
-    private void changeNickname() {
+    public void changeNickname() {
         String nickname = TextUI.promptText("Change the name of " + currentProfile.getNickname() + "\n To:");
         this.currentProfile.setNickname(nickname);
 

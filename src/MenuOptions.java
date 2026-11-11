@@ -10,6 +10,7 @@ public class MenuOptions {
         menu.add("View watchlist");
         menu.add("Search");
         menu.add("Change profile");
+        menu.add("Change Nickname of profile");
         menu.add("Logout");
         return menu;
     }
