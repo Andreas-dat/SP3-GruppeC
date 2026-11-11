@@ -72,9 +72,9 @@ public class Service {
 
         switch(choice) {
             case 0 -> logout();
-            case 1 -> displayMediaList(media);
-            case 2 -> displayMediaList(currentUser.getCurrentProfile().getHasWatched());
-            case 3 -> displayMediaList(currentUser.getCurrentProfile().getPlanToWatch());
+            case 1 -> mediaListMenu(media);
+            case 2 -> mediaListMenu(currentUser.getCurrentProfile().getHasWatched());
+            case 3 -> mediaListMenu(currentUser.getCurrentProfile().getPlanToWatch());
             case 4 -> state = ServiceState.SEARCH_MENU;
             case 5 -> {
                 currentUser.setCurrentProfileToNull();
@@ -120,7 +120,7 @@ public class Service {
             case 4 -> filteredList = Search.searchByDecade(media);
             case 5 -> filteredList = Search.searchByCategory(media);
         }
-        displayMediaList(filteredList);
+        mediaListMenu(filteredList);
     }
 
     private void userLogin(int tries) {
@@ -220,7 +220,7 @@ public class Service {
         return password;
     }
 
-    public void displayMediaList(ArrayList<Media> media) {
+    public void mediaListMenu(ArrayList<Media> media) {
         ArrayList<String> mediaList = new ArrayList<>();
         ArrayList<Media> filteredList = new ArrayList<>();
 
