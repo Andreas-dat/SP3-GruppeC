@@ -1,21 +1,21 @@
 import java.util.ArrayList;
 
 public class MenuOptions {
-    private static ArrayList<String> menu = new ArrayList();
 
     public static ArrayList<String> mainMenu() {
-        menu.clear();
+        ArrayList<String> menu = new ArrayList<>();
         menu.add("View all media");
         menu.add("View history");
         menu.add("View watchlist");
         menu.add("Search");
         menu.add("Change profile");
         menu.add("Logout");
+
         return menu;
     }
 
     public static ArrayList<String> startMenu() {
-        menu.clear();
+        ArrayList<String> menu = new ArrayList<>();
         menu.add("Login");
         menu.add("Register User");
         menu.add("Exit");
@@ -24,7 +24,7 @@ public class MenuOptions {
     }
 
     public static ArrayList<String> profileMenu(ArrayList<Profile> profiles) {
-        menu.clear();
+        ArrayList<String> menu = new ArrayList<>();
         for(Profile p: profiles) {
             menu.add(p.getNickname());
         }
@@ -33,11 +33,12 @@ public class MenuOptions {
         }
         //TODO: Edit profile?
         menu.add("Logout");
+
         return menu;
     }
 
     public static ArrayList<String> mediaMenu(boolean isOnWatchlist, boolean isOnHasWatched) {
-        menu.clear();
+        ArrayList<String> menu = new ArrayList<>();
         menu.add("Play media");
 
         if (isOnWatchlist) {     //If-statement checks if current profile contains the movie/series, user options vary on result
@@ -55,7 +56,7 @@ public class MenuOptions {
     }
 
     public static ArrayList<String> searchMenu () {
-        menu.clear();
+        ArrayList<String> menu = new ArrayList<>();
         menu.add("Rating");
         menu.add("Title");
         menu.add("Year");
