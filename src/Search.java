@@ -14,6 +14,7 @@ public class Search {
                 filteredList.add(m);
             }
         }
+        emptyListMessage();
         return filteredList;
     }
 
@@ -26,17 +27,19 @@ public class Search {
                 filteredList.add(m);
             }
         }
+        emptyListMessage();
         return filteredList;
     }
     public static ArrayList<Media> searchByYear(ArrayList<Media> media) {
         filteredList.clear();
-        int choice = TextUI.promptNumeric("Type a calandar year");
+        int choice = TextUI.promptNumeric("Type a calander year");
 
         for (Media m : media) {
             if (m.getReleaseYear() == choice) {   //todo: change so that we search by decade?
                 filteredList.add(m);
             }
         }
+        emptyListMessage();
         return filteredList;
     }
 
@@ -52,8 +55,8 @@ public class Search {
                 filteredList.add(m);
             }
         }
+        emptyListMessage();
         return filteredList;
-
     }
 
     public static ArrayList<Media> searchByCategory(ArrayList<Media> media) {
@@ -75,6 +78,7 @@ public class Search {
                 }
             }
         }
+        emptyListMessage();
         return filteredList;
     }
 
@@ -87,7 +91,13 @@ public class Search {
                 filteredList.remove(m);
             }
         }
-
+        emptyListMessage();
         return filteredList;
+    }
+
+    public static void emptyListMessage() {
+        if (filteredList.isEmpty()) {
+            TextUI.displayMessage("No matches for search");
+        }
     }
 }
