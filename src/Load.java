@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Load {
 
     public static void loadProfiles(User user, ArrayList<Media> media) {
-        ArrayList<String> profile = FileIO.readData("data/profiles/" + user.getName() + ".csv", true);
+        ArrayList<String> profile = FileIO.readData("data/profiles/" + user.getUsername() + ".csv", true);
 
         for (String p : profile) {
             String[] s = p.split(";");
