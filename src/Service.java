@@ -14,6 +14,9 @@ public class Service {
         this.name = name;
         this.users = Load.loadUsers();
         this.media = new ArrayList<>();
+    }
+
+    public void startService() {
         Load.loadMedia(media,"data/media/movies.csv", "movies");
         Load.loadMedia(media,"data/media/series.csv", "series");
         state = ServiceState.START_MENU;
@@ -21,6 +24,9 @@ public class Service {
         //TEST
         currentUser = users.getFirst();
         state = ServiceState.PROFILE_MENU;
+        //TEST
+
+        runService();
     }
 
     public void runService() {
