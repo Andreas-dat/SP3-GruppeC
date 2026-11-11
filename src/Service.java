@@ -27,7 +27,7 @@ public class Service {
         running = true;
 
         while (running) {
-            if (currentUser == null) {
+            while (currentUser == null) {
                 startMenu();
             }
             if (running && currentUser.getCurrentProfile() == null) {
@@ -73,8 +73,8 @@ public class Service {
 
        switch(choice) {
            case 0 -> running = false;
-           case 1 -> userLogin(maxTries);
-           case 2 -> registerUser();
+           case 1 -> setCurrentUser(UserService.userLogin(maxTries, users));
+           case 2 -> UserService.registerUser(users);
        }
     }
 
@@ -135,111 +135,14 @@ public class Service {
         displayMediaList(filteredList);
     }
 
-    private void userLogin(int tries) {
-        if (tries == 0) {
-            TextUI.displayMessage("You have used your maximum amount of tries\nPlease try again later");
-            startMenu();
-            return;
-        }
-        String username = TextUI.promptText("Enter username");
-        String password = TextUI.promptText("Enter password");
-        if (checkUser(username, password)) {
-            TextUI.displayMessage("Successful login\n Welcome " + currentUser.getName());
-            return;
-        }
-        TextUI.displayMessage("Invalid Username or Password\nyou have " + tries + " tries left");
-        userLogin(tries - 1);
-    }
-
-    private boolean checkUser(String username, String password) {
-        for(User u: users) {
-            if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
-                setCurrentUser(u);
-               return true;
-            }
-        }
-        return false;
-    }
-
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
-
-    public void registerUser() {
-        //prompts user for name, username... check if valid
-        //after successfully registering: startMenu()
-        String name = TextUI.promptText("Please enter a name:");
-        String eMail = getUserMail();
-        int birthYear = getUserBirthYear();
-        String username = getUserUsername();
-        String password = getUserPassword();
-
-        createUser(name, username, password, eMail, birthYear);
-
-        startMenu();
-    }
-
-    private void createUser(String name, String username, String password, String eMail, int birthYear) {
-        //create user object with parameters from method
-        //add parameters
-        User user = new User(name, username, password, eMail, birthYear);
-        users.add(user);
-        TextUI.displayMessage("User registered " + name);
-
-        //standard profiles
-        user.createProfile(name, false);
-        user.createProfile("Kids", true);
-        Save.saveProfiles(user);
-    }
-
-
-
     private void logout() {
         Save.saveUsers(users);
         Save.saveProfiles(currentUser);
         currentUser.setCurrentProfileToNull();
         currentUser = null;
-    }
-
-    //Getters for register User
-
-    private String getUserMail(){
-        String eMail = TextUI.promptText("Please enter your Email:"); //check if mail has characters '@' and '.'
-        if (eMail.indexOf('@') == -1 || eMail.indexOf('.') == -1){
-            getUserMail();
-        }
-        return eMail;
-    }
-
-    private int getUserBirthYear(){
-        int birthYear = 0;
-        try {
-            birthYear = TextUI.promptNumeric("Please enter your birth year:");
-            if (birthYear < 1920 || birthYear > CURRENTYEAR){
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e){
-            TextUI.displayMessage("Please enter a valid number");
-            getUserBirthYear();
-        }
-        return birthYear;
-    }
-    private String getUserUsername(){
-        String username = TextUI.promptText("Please enter a username:"); //run through list of existing usernames, make sure username is not duplicate
-        for (User user : users){
-            if ((user.getUsername()).equals(username)){
-                getUserUsername();
-            }
-        }
-        return username;
-    }
-
-    private String getUserPassword(){
-        String password = TextUI.promptText("Please enter a password:"); //check if length is valid
-        if (password.length() < MINIMUMPASSWORDLENGTH){
-            getUserPassword();
-        }
-        return password;
     }
 
     public void displayMediaList(ArrayList<Media> media) {
