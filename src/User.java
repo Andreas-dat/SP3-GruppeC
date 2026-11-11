@@ -52,8 +52,19 @@ public class User {
         }
 
 
-    public void deleteProfile() {
-        //Delete current profile. remmeber to delete it from the arraylist of profiles
+    public boolean deleteProfile() {
+        String userNickName = getCurrentProfile().getNickname();
+        if(TextUI.promptBinary("Are you sure you wanna delete profile:" + userNickName + "")) {
+            profiles.remove(currentProfile);
+            setCurrentProfileToNull();
+            TextUI.displayMessage("You have now deleted user " + userNickName);
+            return true;
+        } else {
+            TextUI.displayMessage("Deletion of profile: "  + userNickName + " canceled");
+            return false;
+        }
+
+
     }
 
     public void createProfile(String name, boolean isChild) {

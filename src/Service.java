@@ -92,6 +92,9 @@ public class Service {
             }
             case 6 -> currentUser.changeNickname();
             case 7 -> currentUser.changeChildStatus();
+            case 8 -> {
+                if(currentUser.deleteProfile()) logout();
+            }
         }
     }
 
