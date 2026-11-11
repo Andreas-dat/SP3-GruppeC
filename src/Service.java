@@ -110,7 +110,8 @@ public class Service {
             case 1 -> filteredList = Search.searchByRating(media);
             case 2 -> filteredList = Search.searchByTitle(media);
             case 3 -> filteredList = Search.searchByYear(media);
-            case 4 -> filteredList = Search.searchByCategory(media);
+            case 4 -> filteredList = Search.searchByDecade(media);
+            case 5 -> filteredList = Search.searchByCategory(media);
         }
         displayMediaList(filteredList);
     }

@@ -27,6 +27,9 @@ public class Series extends Media implements Watchable{
 
     @Override
     public String toString() {
+        if(getEndOfRelease() == -1) {
+            return getTitle() + " (" + getReleaseYear() + "- ) " + "Rating: " + getRating() + " " + getGenres() + ". ID: " + getID();
+        }
         return getTitle() + " (" + getReleaseYear() + "-" + getEndOfRelease() + ") " + "Rating: " + getRating() + " " + getGenres() + ". ID: " + getID();
     }
 

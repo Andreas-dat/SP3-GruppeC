@@ -62,6 +62,7 @@ public class MenuOptions {
         menu.add("Rating");
         menu.add("Title");
         menu.add("Year");
+        menu.add("Decade");
         menu.add("Category");
 
         return menu;

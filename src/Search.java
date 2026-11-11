@@ -40,8 +40,27 @@ public class Search {
         return filteredList;
     }
 
+    public static ArrayList<Media> searchByDecade(ArrayList<Media> media) {
+        filteredList.clear();
+        int choice = TextUI.promptNumeric("Type a decade:");
+        if(choice % 10 != 0) {
+            choice -= choice % 10;
+        }
+
+        for (Media m : media) {
+            if (m.getReleaseYear() <= choice + 9 && m.getReleaseYear() >= choice) {   //todo: change so that we search by decade?
+                filteredList.add(m);
+            }
+        }
+        return filteredList;
+
+    }
+
     public static ArrayList<Media> searchByCategory(ArrayList<Media> media) {
         filteredList.clear();
+        for (Media m : media) {
+            filteredList.add(m);
+        }
         ArrayList<String> categories = new ArrayList<>();
         for (Categories c : Categories.values()) {
             categories.add(c.name());
@@ -53,8 +72,8 @@ public class Search {
         for (String choice : choices) {
             for (Media m : media) {
                 String genres = m.getGenres().toString().toUpperCase();
-                if (genres.contains(choice)) {
-                    filteredList.add(m);
+                if (!genres.contains(choice)) {
+                    filteredList.remove(m);
                 }
             }
         }
