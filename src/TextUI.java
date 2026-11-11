@@ -30,14 +30,11 @@ public class TextUI {
 
     public static int promptNumeric(String msg) {
         System.out.println(msg);
-        int input = 0;
+        int input;
         try {
             input = Integer.parseInt(scan.nextLine());
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException | NumberFormatException e) {
             System.out.println("Write a number");
-            input = promptNumeric(msg);
-        } catch (NumberFormatException e) {
-            System.out.println("Input cant be empty");
             input = promptNumeric(msg);
         }
         return input;
@@ -45,15 +42,12 @@ public class TextUI {
 
     public static double promptDecimal(String msg) {
         System.out.println(msg);
-        double input = 0.0;
+        double input;
         try {
             input = Double.parseDouble(scan.nextLine());
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException | NumberFormatException e) {
             System.out.println("Write a decimal");
             input = promptDecimal(msg);
-        } catch (NumberFormatException e) {
-            System.out.println("Input can't be empty");
-            input = promptNumeric(msg);
         }
         return input;
     }
