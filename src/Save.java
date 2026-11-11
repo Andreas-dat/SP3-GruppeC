@@ -22,7 +22,7 @@ public class Save {
             profilesData.add(p.toCSV());
         }
 
-        FileIO.saveData(profilesData, "data/profiles/" + user.getUsername() + ".csv", "Nickname; PlanToWatch; HasWatched; IsChild");
+        FileIO.saveData(profilesData, "data/profiles/" + user.getUsername() + ".csv", "Nickname; isChild; PlanToWatch; HasWatched");
 
         TextUI.displayMessage("Profiles saved to csv");
 

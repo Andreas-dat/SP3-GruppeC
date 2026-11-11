@@ -67,6 +67,9 @@ public class Profile {
 
     private String listToString(ArrayList<Media> media) {
         StringBuilder stringBuilder = new StringBuilder();
+        if(media.isEmpty()) {
+            stringBuilder.append("; null");
+        }
         for (int i = 0; i < media.size(); i++) {
             stringBuilder.append(media.get(i).getID());
             if (i == media.size() - 1) {
@@ -80,9 +83,9 @@ public class Profile {
 
     public String toCSV() {
         StringBuilder stringBuilder = new StringBuilder(nickname + "; ");
+        stringBuilder.append(isChild);
         stringBuilder.append(listToString(planToWatch));
         stringBuilder.append(listToString(hasWatched));
-        stringBuilder.append(isChild);
 
         return stringBuilder.toString();
     }
