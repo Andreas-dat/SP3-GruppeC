@@ -63,7 +63,7 @@ public class Load {
                 String[] d = values[2].split(",");
                 for(String v : d) {
                     for(Categories c : categories) {
-                        if(c.getCategory().equals(v.trim())) {
+                        if(c.getCategory().equalsIgnoreCase(v.trim())) {
                             movieGenre.add(c);
                         }
                     }
@@ -110,7 +110,7 @@ public class Load {
                 String[] d = values[2].split(",");
                 for(String v : d) {
                     for (Categories c : categories) {
-                        if (c.getCategory().equals(v.trim()))
+                        if (c.getCategory().equalsIgnoreCase(v.trim()))
                         {
                             movieGenre.add(c);
                         }

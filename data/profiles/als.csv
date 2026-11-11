@@ -1,4 +1,4 @@
-Nickname; PlanToWatch; HasWatched; IsChild
-als; 10, 20, 198; 30, 40, 199, 197; false
-kids; 20, 30; 20; true
-Tanya; 10, 20, 30; 40; false
+Nickname; isChild; PlanToWatch; HasWatched
+als; false; null183; 
+kids; false; null; null
+Tanya; false; null; null

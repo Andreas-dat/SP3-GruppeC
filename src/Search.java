@@ -61,7 +61,7 @@ public class Search {
         filteredList.addAll(media);
         ArrayList<String> categories = new ArrayList<>();
         for (Categories c : Categories.values()) {
-            categories.add(c.name());
+            categories.add(c.toString());
         }
 
         int limit = TextUI.promptNumeric("How many categories do you want to add?");
@@ -69,7 +69,7 @@ public class Search {
 
         for (String choice : choices) {
             for (Media m : media) {
-                String genres = m.getGenres().toString().toUpperCase();
+                String genres = m.getGenres().toString();
                 if (!genres.contains(choice)) {
                     filteredList.remove(m);
                 }
