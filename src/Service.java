@@ -91,6 +91,7 @@ public class Service {
                 currentUser.setCurrentProfileToNull();
             }
             case 6 -> currentUser.changeNickname();
+            case 7 -> currentUser.changeChildStatus();
         }
     }
 

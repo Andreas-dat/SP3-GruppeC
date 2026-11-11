@@ -11,6 +11,7 @@ public class MenuOptions {
         menu.add("Search");
         menu.add("Change profile");
         menu.add("Change Nickname of profile");
+        menu.add("Change child status");
         menu.add("Logout");
         return menu;
     }

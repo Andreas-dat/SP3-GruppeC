@@ -31,8 +31,26 @@ public class User {
     }
 
     public void changeChildStatus() {
-        //Change the childstatus of current profile, can change both back anad forth.
-    }
+        String msg = "Wanna change " + getCurrentProfile().getNickname() + " to";
+        String yesMsg = "Sucess" + getCurrentProfile().getNickname() + " is now a ";
+        if(currentProfile.getIsChild()) {
+            if (TextUI.promptBinary(msg + "to an adult? Y/n")) {
+                this.currentProfile.setChild(false);
+                yesMsg += "Adult profile";
+                TextUI.displayMessage(yesMsg);
+                setCurrentProfileToNull();
+            }
+        }
+        else {
+            if(TextUI.promptBinary(msg + "to a child? Y/n")) {
+                this.currentProfile.setChild(true);
+                yesMsg += "Child profile";
+                TextUI.displayMessage(yesMsg);
+                setCurrentProfileToNull();
+            }
+            }
+        }
+
 
     public void deleteProfile() {
         //Delete current profile. remmeber to delete it from the arraylist of profiles

@@ -85,4 +85,8 @@ public class Profile {
     public Boolean getIsChild() {
         return isChild;
     }
+
+    public void setChild(boolean child) {
+        isChild = child;
+    }
 }
