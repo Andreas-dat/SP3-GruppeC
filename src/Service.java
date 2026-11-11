@@ -11,6 +11,7 @@ public class Service {
     private ArrayList<Media> media;
     private ArrayList<User> users;
     private boolean running;
+    private ServiceState state;
 
     public Service(String name) {
         this.name = name;
@@ -21,21 +22,28 @@ public class Service {
         Load.loadMedia(media,"data/media/movies.csv", "movies");
         Load.loadMedia(media,"data/media/series.csv", "series");
         this.familyMedia = Search.familyMedia(media);
+        state = ServiceState.START_MENU;
     }
 
     public void runService() {
-        running = true;
+        while (state != ServiceState.EXIT) {
+            switch (state) {
+                case START_MENU -> startMenu();
+                case PROFILE_MENU -> profileMenu();
+                case MAIN_MENU -> mainMenu();
+                case SEARCH_MENU -> searchMenu();
+            }
+        }
+    }
 
-        while (running) {
-            if (currentUser == null) {
-                startMenu();
-            }
-            if (running && currentUser.getCurrentProfile() == null) {
-                profileMenu();
-            }
-            if(running && currentUser != null) {
-                mainMenu();
-            }
+    public void startMenu() {
+        int maxTries = 3;
+        int choice = TextUI.promptMenuChoice(MenuOptions.startMenu(), "Welcome to " + name);
+
+        switch(choice) {
+            case 0 -> state = ServiceState.EXIT;
+            case 1 -> userLogin(maxTries);
+            case 2 -> registerUser();
         }
     }
 
@@ -51,31 +59,20 @@ public class Service {
             logout();
             return;
         }
-        if(profileCount >= choice) {
-            if(currentUser.getProfiles().get(choice - 1).getIsChild()) {
-                currentMedia = familyMedia;
 
-            } else {
-                currentMedia = media;
-            }
-            currentUser.setCurrentProfile(choice - 1);
-        }
-        else if(profileCount + 1 == choice && profileCount < 6) {
+        if (profileCount + 1 == choice && profileCount < 6) {
             currentUser.createNewProfile();
-            profileMenu();
+            return;
         }
 
-    }
+        currentUser.setCurrentProfile(choice - 1);
 
-    public void startMenu() {
-       int maxTries = 3;
-       int choice = TextUI.promptMenuChoice(MenuOptions.startMenu(), "Welcome to");
-
-       switch(choice) {
-           case 0 -> running = false;
-           case 1 -> userLogin(maxTries);
-           case 2 -> registerUser();
-       }
+        if (currentUser.getCurrentProfile().getIsChild()) {
+            currentMedia = familyMedia;
+        } else {
+            currentMedia = media;
+        }
+        state = ServiceState.MAIN_MENU;
     }
 
     public void mainMenu() {
@@ -86,9 +83,10 @@ public class Service {
             case 1 -> displayMediaList(currentMedia);
             case 2 -> displayMediaList(currentUser.getCurrentProfile().getHasWatched());
             case 3 -> displayMediaList(currentUser.getCurrentProfile().getPlanToWatch());
-            case 4 -> searchMenu();
+            case 4 -> state = ServiceState.SEARCH_MENU;
             case 5 -> {
                 currentUser.setCurrentProfileToNull();
+                state = ServiceState.PROFILE_MENU;
             }
         }
     }
@@ -123,9 +121,7 @@ public class Service {
 
         int choice = TextUI.promptMenuChoice(MenuOptions.searchMenu(), "Search by:");
         switch (choice) {
-            case 0 -> {
-                return;
-            }
+            case 0 -> state = ServiceState.MAIN_MENU;
             case 1 -> filteredList = Search.searchByRating(currentMedia);
             case 2 -> filteredList = Search.searchByTitle(currentMedia);
             case 3 -> filteredList = Search.searchByYear(currentMedia);
@@ -138,17 +134,17 @@ public class Service {
     private void userLogin(int tries) {
         if (tries == 0) {
             TextUI.displayMessage("You have used your maximum amount of tries\nPlease try again later");
-            startMenu();
             return;
         }
         String username = TextUI.promptText("Enter username");
         String password = TextUI.promptText("Enter password");
-        if (checkUser(username, password)) {
-            TextUI.displayMessage("Successful login\n Welcome " + currentUser.getName());
+        if (!checkUser(username, password)) {
+            TextUI.displayMessage("Invalid Username or Password\nyou have " + tries + " tries left");
+            userLogin(tries - 1);
             return;
         }
-        TextUI.displayMessage("Invalid Username or Password\nyou have " + tries + " tries left");
-        userLogin(tries - 1);
+        TextUI.displayMessage("Successful login\n Welcome " + currentUser.getName());
+        state = ServiceState.PROFILE_MENU;
     }
 
     private boolean checkUser(String username, String password) {
@@ -166,8 +162,6 @@ public class Service {
     }
 
     public void registerUser() {
-        //prompts user for name, username... check if valid
-        //after successfully registering: startMenu()
         String name = TextUI.promptText("Please enter a name:");
         String eMail = getUserMail();
         int birthYear = getUserBirthYear();
@@ -175,33 +169,25 @@ public class Service {
         String password = getUserPassword();
 
         createUser(name, username, password, eMail, birthYear);
-
-        startMenu();
     }
 
     private void createUser(String name, String username, String password, String eMail, int birthYear) {
-        //create user object with parameters from method
-        //add parameters
         User user = new User(name, username, password, eMail, birthYear);
         users.add(user);
         TextUI.displayMessage("User registered " + name);
 
-        //standard profiles
-        user.createProfile(name, false);
-        user.createProfile("Kids", true);
+        user.createStandardProfiles(name);
         Save.saveProfiles(user);
     }
-
-
 
     private void logout() {
         Save.saveUsers(users);
         Save.saveProfiles(currentUser);
         currentUser.setCurrentProfileToNull();
         currentUser = null;
+        TextUI.displayMessage("You have logged out");
+        state = ServiceState.START_MENU;
     }
-
-    //Getters for register User
 
     private String getUserMail(){
         String eMail = TextUI.promptText("Please enter your Email:"); //check if mail has characters '@' and '.'
@@ -248,8 +234,7 @@ public class Service {
             mediaList.add(m.toString());
         }
         mediaList.add("Main menu");
-        //Method should show list based on criteria (or no criteria)
-        //Should be able to choose a media from the list
+
         int choice = TextUI.promptMenuChoice(mediaList, "Choose a movie or film");
         if (choice == 0) {
             return;
