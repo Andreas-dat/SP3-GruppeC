@@ -27,7 +27,7 @@ public class Service {
         running = true;
 
         while (running) {
-            while (currentUser == null) {
+            while (currentUser == null && running) {
                 startMenu();
             }
             if (running && currentUser.getCurrentProfile() == null) {
@@ -41,7 +41,7 @@ public class Service {
 
     public void profileMenu() {
         if(currentUser.getProfiles().isEmpty()) {
-            Load.loadProfiles(currentUser, currentMedia);
+            Load.loadProfiles(currentUser, media);
         }
 
         int profileCount = currentUser.getProfiles().size();
