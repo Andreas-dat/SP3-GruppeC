@@ -3,12 +3,12 @@ import java.util.ArrayList;
 public class Series extends Media implements Watchable{
 
     private int endOfRelease;
-    ArrayList<Integer> seasonsAndEpisodes;
+    ArrayList<Integer> episodesInSeason;
 
-    public Series(String title, ArrayList<Categories> genre, double rating, int releaseYear, int endOfRelease, ArrayList<Integer> seasonsAndEpisodes) {
-        super(title, genre, releaseYear, rating);
+    public Series(String title, ArrayList<Categories> categories, double rating, int releaseYear, int endOfRelease, ArrayList<Integer> episodesInSeason) {
+        super(title, categories, releaseYear, rating);
         this.endOfRelease = endOfRelease;
-        this.seasonsAndEpisodes = seasonsAndEpisodes;
+        this.episodesInSeason = episodesInSeason;
 
     }
 
