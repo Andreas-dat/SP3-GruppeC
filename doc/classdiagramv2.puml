@@ -2,14 +2,67 @@
 
 
 class Main
+
 class Service{
 -String name
--User user
+-User currentUser
 -ArrayList<Media> media
+-ArrayList<User> users
+-ServiceState state
++Service(String)
+-void logout()
++void mainMenu()
++void mediaListMenu(ArrayList<Media>)
++void profileMenu()
++void runService()
++void searchMenu()
++void startMenu()
 +void startService()
-+void login()
-+void registerUser()
--void createUser(String name, String username, String password, String email, String dateOfBirth)
++void watchableMediaMenu()
+}
+
+class UserService {
+-User current
+-boolean checkUser(String, String, ArrayList<User>)
+-void createUser(String, String, String, String, int, ArrayList<User>)
+-int getUserBirthYear()
+-String getUserMail()
+-String getUserPassword()
+-String getUserName(ArrayList<User>)
++void registerUser(ArrayList<User>
++User userLogin(int, ArrayList<User>)
+}
+
+class LoadManager {
+-ArrayList<Media> convertIDToMedia(String, ArrayList<Media>)
+-ArrayList<Categories> findCategories(String)
+-int findEndOfRelease(String)
+-ArrayList<Integer> findEpisodesInSeason(String)
++void loadMedia(ArrayList<Media>, String, String)
++void loadProfiles(User, ArrayList<Media>)
++ArrayList<User> loadUsers()
+}
+
+class SaveManager {
++void saveProfiles(User)
++void saveUsers(ArrayList<Users>
+}
+
+class Search {
++{static} ArrayList<Media> searchByRating(ArrayList<Media>)
++{static} ArrayList<Media> searchByCategory(ArrayList<Media>)
++{static} ArrayList<Media> searchByDecade(ArrayList<Media>)
++{static} ArrayList<Media> searchByTitle(ArrayList<Media>)
++{static} ArrayList<Media> searchByYear(ArrayList<Media>)
+}
+
+class MenuOptions {
++{static} ArrayList<String> mainMenu()
++{static} ArrayList<String> mediaMenu()
++{static} ArrayList<String> profileMenu()
++{static} ArrayList<String> searchMenu()
++{static} ArrayList<String> startMenu()
+
 }
 
 abstract class Media {
@@ -19,6 +72,7 @@ abstract class Media {
 -int releaseYear
 -int ID
 -{static} int idCount
++Media(String, ArrayList<Categories>, int, double)
 }
 
 class Movie {
@@ -26,7 +80,7 @@ class Movie {
 
 class Series {
 -int endOfRelease
--ArrayList<Season> seasons
+-ArrayList<Integer> episodesInSeason
 }
 
 interface Watchable {
@@ -74,6 +128,14 @@ WAR
 WESTERN
 }
 
+enum ServiceState {
+EXIT
+MAIN_MENU
+PROFILE_MENU
+SEARCH_MENU
+START_MENU
+}
+
 package "util" {
 class TextUI {
 -Scanner scan
@@ -98,6 +160,7 @@ Media <|-- Series
 
 
 Service *-- User
+Service *-- ServiceState
 User *-- Profile
 
 Watchable <|.. Movie
