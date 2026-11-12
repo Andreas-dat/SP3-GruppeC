@@ -13,13 +13,15 @@ public class UserService {
         }
         String username = TextUI.promptText("Enter username");
         String password = TextUI.promptText("Enter password");
-        if (checkUser(username, password, users)) {
+
+        if (!checkUser(username, password, users)) {
+            TextUI.displayMessage("Invalid Username or Password\nyou have " + (tries - 1) + " tries left");
+            userLogin(tries - 1, users);
+        } else {
             TextUI.displayMessage("Successful login\n Welcome " + username);
-            return current;
         }
-        TextUI.displayMessage("Invalid Username or Password\nyou have " + (tries - 1) + " tries left");
-        userLogin(tries - 1, users);
-        return null;
+        return current;
+
     }
 
     private static boolean checkUser(String username, String password, ArrayList<User> users) {
@@ -32,8 +34,6 @@ public class UserService {
         return false;
     }
     public static void registerUser(ArrayList<User> users) {
-        //prompts user for name, username... check if valid
-        //after successfully registering: startMenu()
         String name = TextUI.promptText("Please enter a name:");
         String eMail = getUserMail();
         int birthYear = getUserBirthYear();
@@ -45,16 +45,12 @@ public class UserService {
     }
 
     private static void createUser(String name, String username, String password, String eMail, int birthYear, ArrayList<User> users) {
-        //create user object with parameters from method
-        //add parameters
         User user = new User(name, username, password, eMail, birthYear);
         users.add(user);
         TextUI.displayMessage("User registered " + name);
 
-        //standard profiles
-        user.createProfile(name, false);
-        user.createProfile("Kids", true);
-        Save.saveProfiles(user);
+        user.createStandardProfiles(username);
+        SaveManager.saveProfiles(user);
     }
     private static String getUserMail(){
         String eMail = TextUI.promptText("Please enter your Email:"); //check if mail has characters '@' and '.'

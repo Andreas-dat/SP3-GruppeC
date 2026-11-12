@@ -1,7 +1,7 @@
 
 import java.util.ArrayList;
 
-public class Load {
+public class LoadManager {
 
     public static void loadProfiles(User user, ArrayList<Media> media) {
         ArrayList<String> profile = FileIO.readData("data/profiles/" + user.getUsername() + ".csv", true);
@@ -14,11 +14,11 @@ public class Load {
             String name = s[0];
             boolean isChild = Boolean.parseBoolean(s[1].trim());
             try {
-                planToWatch = convertStringToMedia(s[2], media);
+                planToWatch = convertIDToMedia(s[2], media);
             }catch (NumberFormatException e) {
             }
             try {
-                hasWatched = convertStringToMedia(s[3], media);
+                hasWatched = convertIDToMedia(s[3], media);
             } catch (NumberFormatException e) {
             }
 
@@ -26,7 +26,7 @@ public class Load {
         }
     }
 
-    private static ArrayList<Media> convertStringToMedia(String list, ArrayList<Media> mediaList) {
+    private static ArrayList<Media> convertIDToMedia(String list, ArrayList<Media> mediaList) {
         ArrayList<Media> media = new ArrayList<>();
         String[] s = list.split(",");
 

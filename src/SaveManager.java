@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Save {
+public class SaveManager {
 
     public static void saveUsers(ArrayList<User> users) {
         ArrayList<String> usersData = new ArrayList<>();

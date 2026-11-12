@@ -12,19 +12,14 @@ public class Service {
 
     public Service(String name) {
         this.name = name;
-        this.users = Load.loadUsers();
+        this.users = LoadManager.loadUsers();
         this.media = new ArrayList<>();
     }
 
     public void startService() {
-        Load.loadMedia(media,"data/media/movies.csv", "movies");
-        Load.loadMedia(media,"data/media/series.csv", "series");
+        LoadManager.loadMedia(media,"data/media/movies.csv", "movies");
+        LoadManager.loadMedia(media,"data/media/series.csv", "series");
         state = ServiceState.START_MENU;
-
-        //TEST
-        currentUser = users.getFirst();
-        state = ServiceState.PROFILE_MENU;
-        //TEST
 
         runService();
     }
@@ -46,14 +41,19 @@ public class Service {
 
         switch(choice) {
             case 0 -> state = ServiceState.EXIT;
-            case 1 -> userLogin(maxTries);
-            case 2 -> registerUser();
+            case 1 -> {
+                setCurrentUser(UserService.userLogin(maxTries, users));
+                if (currentUser != null) {
+                    state = ServiceState.PROFILE_MENU;
+                }
+            }
+            case 2 -> UserService.registerUser(users);
         }
     }
 
     public void profileMenu() {
         if(currentUser.getProfiles().isEmpty()) {
-            Load.loadProfiles(currentUser, media);
+            LoadManager.loadProfiles(currentUser, media);
         }
 
         int profileCount = currentUser.getProfiles().size();
@@ -124,7 +124,10 @@ public class Service {
 
         int choice = TextUI.promptMenuChoice(MenuOptions.searchMenu(), "Search by:");
         switch (choice) {
-            case 0 -> state = ServiceState.MAIN_MENU;
+            case 0 -> {
+                state = ServiceState.MAIN_MENU;
+                return;
+            }
             case 1 -> filteredList = Search.searchByRating(media);
             case 2 -> filteredList = Search.searchByTitle(media);
             case 3 -> filteredList = Search.searchByYear(media);
@@ -138,13 +141,14 @@ public class Service {
         this.currentUser = currentUser;
     }
     private void logout() {
-        Save.saveUsers(users);
-        Save.saveProfiles(currentUser);
+        SaveManager.saveUsers(users);
+        SaveManager.saveProfiles(currentUser);
         currentUser.setCurrentProfileToNull();
         currentUser = null;
+        state = ServiceState.START_MENU;
     }
 
-    public void displayMediaList(ArrayList<Media> media) {
+    public void mediaListMenu(ArrayList<Media> media) {
         ArrayList<String> mediaList = new ArrayList<>();
         ArrayList<Media> filteredList = new ArrayList<>();
 
@@ -159,6 +163,15 @@ public class Service {
         }
 
         mediaList.add("Main menu");
+
+        if (mediaList.size() == 1) {
+            if (state == ServiceState.SEARCH_MENU) {
+                TextUI.displayMessage("No media matches search");
+            } else {
+                TextUI.displayMessage("List is empty");
+            }
+            return;
+        }
 
         int choice = TextUI.promptMenuChoice(mediaList, "Choose a movie or film");
         if (choice == 0) {
