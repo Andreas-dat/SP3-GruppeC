@@ -9,6 +9,9 @@ public class MenuOptions {
         menu.add("View watchlist");
         menu.add("Search");
         menu.add("Change profile");
+        menu.add("Change Nickname of profile");
+        menu.add("Change child status");
+        menu.add("Delete current propfile");
         menu.add("Logout");
 
         return menu;

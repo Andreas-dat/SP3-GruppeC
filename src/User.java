@@ -24,17 +24,47 @@ public class User {
 
     }
 
-    private void changeNickname() {
-        //change nickname of current profile on the user, check rules etc (Not the same name as another profile)
+    public void changeNickname() {
+        String nickname = TextUI.promptText("Change the name of " + currentProfile.getNickname() + "\n To:");
+        this.currentProfile.setNickname(nickname);
 
     }
 
     public void changeChildStatus() {
-        //Change the childstatus of current profile, can change both back anad forth.
-    }
+        String msg = "Wanna change " + getCurrentProfile().getNickname() + " to";
+        String yesMsg = "Sucess" + getCurrentProfile().getNickname() + " is now a ";
+        if(currentProfile.getIsChild()) {
+            if (TextUI.promptBinary(msg + "to an adult? Y/n")) {
+                this.currentProfile.setChild(false);
+                yesMsg += "Adult profile";
+                TextUI.displayMessage(yesMsg);
+                setCurrentProfileToNull();
+            }
+        }
+        else {
+            if(TextUI.promptBinary(msg + "to a child? Y/n")) {
+                this.currentProfile.setChild(true);
+                yesMsg += "Child profile";
+                TextUI.displayMessage(yesMsg);
+                setCurrentProfileToNull();
+            }
+            }
+        }
 
-    public void deleteProfile() {
-        //Delete current profile. remmeber to delete it from the arraylist of profiles
+
+    public boolean deleteProfile() {
+        String userNickName = getCurrentProfile().getNickname();
+        if(TextUI.promptBinary("Are you sure you wanna delete profile:" + userNickName + "")) {
+            profiles.remove(currentProfile);
+            setCurrentProfileToNull();
+            TextUI.displayMessage("You have now deleted user " + userNickName);
+            return true;
+        } else {
+            TextUI.displayMessage("Deletion of profile: "  + userNickName + " canceled");
+            return false;
+        }
+
+
     }
 
     public void createStandardProfiles(String name) {

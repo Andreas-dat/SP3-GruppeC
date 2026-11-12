@@ -86,6 +86,11 @@ public class Service {
                 currentUser.setCurrentProfileToNull();
                 state = ServiceState.PROFILE_MENU;
             }
+            case 6 -> currentUser.changeNickname();
+            case 7 -> currentUser.changeChildStatus();
+            case 8 -> {
+                if(currentUser.deleteProfile()) logout();
+            }
         }
     }
 
@@ -129,104 +134,17 @@ public class Service {
         mediaListMenu(filteredList);
     }
 
-    private void userLogin(int tries) {
-        if (tries == 0) {
-            TextUI.displayMessage("You have used your maximum amount of tries\nPlease try again later");
-            return;
-        }
-        String username = TextUI.promptText("Enter username");
-        String password = TextUI.promptText("Enter password");
-        if (!checkUser(username, password)) {
-            TextUI.displayMessage("Invalid Username or Password\nyou have " + tries + " tries left");
-            userLogin(tries - 1);
-            return;
-        }
-        TextUI.displayMessage("Successful login\n Welcome " + currentUser.getName());
-        state = ServiceState.PROFILE_MENU;
-    }
-
-    private boolean checkUser(String username, String password) {
-        for(User u: users) {
-            if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
-                setCurrentUser(u);
-               return true;
-            }
-        }
-        return false;
-    }
-
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
-
-    public void registerUser() {
-        String name = TextUI.promptText("Please enter a name:");
-        String eMail = getUserMail();
-        int birthYear = getUserBirthYear();
-        String username = getUserUsername();
-        String password = getUserPassword();
-
-        createUser(name, username, password, eMail, birthYear);
-    }
-
-    private void createUser(String name, String username, String password, String eMail, int birthYear) {
-        User user = new User(name, username, password, eMail, birthYear);
-        users.add(user);
-        TextUI.displayMessage("User registered " + name);
-
-        user.createStandardProfiles(name);
-        Save.saveProfiles(user);
-    }
-
     private void logout() {
         Save.saveUsers(users);
         Save.saveProfiles(currentUser);
         currentUser.setCurrentProfileToNull();
         currentUser = null;
-        TextUI.displayMessage("You have logged out");
-        state = ServiceState.START_MENU;
     }
 
-    private String getUserMail(){
-        String eMail = TextUI.promptText("Please enter your Email:"); //check if mail has characters '@' and '.'
-        if (eMail.indexOf('@') == -1 || eMail.indexOf('.') == -1){
-            getUserMail();
-        }
-        return eMail;
-    }
-
-    private int getUserBirthYear(){
-        int birthYear = 0;
-        try {
-            birthYear = TextUI.promptNumeric("Please enter your birth year:");
-            if (birthYear < 1920 || birthYear > CURRENTYEAR){
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e){
-            TextUI.displayMessage("Please enter a valid number");
-            getUserBirthYear();
-        }
-        return birthYear;
-    }
-    private String getUserUsername(){
-        String username = TextUI.promptText("Please enter a username:"); //run through list of existing usernames, make sure username is not duplicate
-        for (User user : users){
-            if ((user.getUsername()).equals(username)){
-                getUserUsername();
-            }
-        }
-        return username;
-    }
-
-    private String getUserPassword(){
-        String password = TextUI.promptText("Please enter a password:"); //check if length is valid
-        if (password.length() < MINIMUMPASSWORDLENGTH){
-            getUserPassword();
-        }
-        return password;
-    }
-
-    public void mediaListMenu(ArrayList<Media> media) {
+    public void displayMediaList(ArrayList<Media> media) {
         ArrayList<String> mediaList = new ArrayList<>();
         ArrayList<Media> filteredList = new ArrayList<>();
 

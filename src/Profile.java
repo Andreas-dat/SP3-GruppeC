@@ -60,7 +60,7 @@ public class Profile {
     private String listToString(ArrayList<Media> media) {
         StringBuilder stringBuilder = new StringBuilder();
         if(media.isEmpty()) {
-            stringBuilder.append("; null");
+            stringBuilder.append("; null;");
         }
         for (int i = 0; i < media.size(); i++) {
             stringBuilder.append(media.get(i).getID());
@@ -75,7 +75,7 @@ public class Profile {
 
     public String toCSV() {
         StringBuilder stringBuilder = new StringBuilder(nickname + "; ");
-        stringBuilder.append(isChild);
+        stringBuilder.append(isChild + "; ");
         stringBuilder.append(listToString(planToWatch));
         stringBuilder.append(listToString(hasWatched));
 
@@ -84,5 +84,9 @@ public class Profile {
 
     public Boolean getIsChild() {
         return isChild;
+    }
+
+    public void setChild(boolean child) {
+        isChild = child;
     }
 }
